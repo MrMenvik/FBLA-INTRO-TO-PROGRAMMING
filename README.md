@@ -10,11 +10,13 @@
 
 This project is a GPA calculator designed for FBLA's 2023-2024 Intro to Programming. It functions by gathering course information and grades, then presents the calculated GPA based on the following grading scale:
 
-- 90-100: A
-- 80-89: B
-- 70-79: C
-- 60-69: D
-- Below 60: F
+| Grade | Honor Points | Grade | Grade Points |
+|-------|--------------|-------|--------------|
+| A     | 5            | A     | 4            |
+| B     | 4            | B     | 3            |
+| C     | 3            | C     | 2            |
+| D     | 1            | D     | 1            |
+| F     | 0            | F     | 0            |
 
 ## Usage
 
@@ -25,7 +27,7 @@ To utilize the project, follow these steps:
     git clone https://github.com/MaanvikP/FBLA-2023-24-Intro-to-Programming.git
     ```
 
-2. **Run the Program**: Run the project through a suitable development environment or IDE that supports the programming language used for this project (mention the language here). Execute the main file or program to launch the GPA calculator.
+2. **Run the Program**: Run the project through a suitable development environment or IDE that supports the programming language used for this project (Python). Execute the main file or program to launch the GPA calculator.
 
 3. **Input Course Information**: Enter your course information, including course names and respective grades.
 
