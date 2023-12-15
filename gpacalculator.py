@@ -1,5 +1,5 @@
 import json
-import subprocess
+from pymongo import MongoClient
 
 # Display welcome message
 print("-" * 60)
@@ -130,20 +130,19 @@ print("Unweighted GPA: {:.2f}".format(unweighted_gpa))
 print("Weighted GPA: {:.2f}".format(weighted_gpa))
 print("-" * 60)
 
-# Function to save data to MongoDB Atlas
+# Save user-specific data to MongoDB
 def save_to_mongodb(data):
     try:
-        # Convert the data to a JSON string
-        json_data = json.dumps(data)
-
-        # MongoDB insert command
-        command = f"echo '{json_data}' | mongo localhost:27017/gpa_data --eval 'db.user_data.insertOne(JSON.parse(this))'"
-
-        # Execute the MongoDB command using subprocess
-        subprocess.run(command, shell=True, check=True)
+        # Connect to MongoDB
+        client = MongoClient('mongodb://localhost:27017')
+        db = client['gpa_data']
+        collection = db['user_data']
+        
+        # Insert the data into MongoDB
+        collection.insert_one(data)
         print("Data uploaded to MongoDB successfully!")
-        print("Thanks for using GPA Calculator!")
-    except subprocess.CalledProcessError as e:
+        print("Thanks for using GPA Calculator")
+    except Exception as e:
         print("Error while uploading data to MongoDB:", e)
 
 # Save user-specific data to MongoDB if chosen
@@ -155,6 +154,3 @@ if input("Do you want to save your data to MongoDB? (yes/no): ").lower() == "yes
         "Weighted GPA": weighted_gpa
     }
     save_to_mongodb(user_data)
-else:
-    print("Not uploaded to MongoDB.")
-    print("Thank you for using GPA Calculator!")
