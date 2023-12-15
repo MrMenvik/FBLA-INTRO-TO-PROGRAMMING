@@ -32,3 +32,4 @@ To utilize the project, follow these steps:
 3. **Input Course Information**: Enter your course information, including course names and respective grades.
 
 4. **View GPA Calculation**: The program will process the entered data and display the calculated GPA based on the provided grading scale.
+
