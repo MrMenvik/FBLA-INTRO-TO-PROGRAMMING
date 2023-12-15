@@ -1,20 +1,30 @@
+import json
+
+# Display welcome message
 print("-" * 60)
 print("Welcome to GPA Calculator")
 print("-" * 60)
 
-def get_course_input():
+# Function to get the user's name
+def get_user_name():
+    return input("Please enter your name: ")
+
+# Function to get the number of courses taken
+def get_number_of_courses():
     while True:
         try:
-            course_amount = int(input("How many courses have you taken? (1-36): "))
+            # Ask user for the number of courses
+            num_courses = int(input("How many courses have you taken? (1-36): "))
             print()
-            if 1 <= course_amount <= 36:
-                return course_amount
+            if 1 <= num_courses <= 36:
+                return num_courses
             else:
                 print("Please enter a number between 1 and 36.")
         except ValueError:
             print("Please type in a number!")
 
-def gpa_inputs(course_input):
+# Function to gather course information
+def collect_course_data(num_courses):
     counter = 0
     ordinals = [
         "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth",
@@ -24,8 +34,8 @@ def gpa_inputs(course_input):
         "thirtieth", "thirty-first", "thirty-second", "thirty-third", "thirty-fourth", "thirty-fifth",
         "thirty-sixth"
     ]
-    courses = []  # List to store course data as individual dictionaries
-    while counter != course_input:
+    courses = []  
+    while counter != num_courses:
         course_name = input(f"What was the name of your {ordinals[counter]} course?: ")
         grade = None
         while grade is None:
@@ -41,20 +51,20 @@ def gpa_inputs(course_input):
         while course_type is None:
             course_type = input("Regular, Honors, AP/Dual Enrollment?: ").lower()
             if course_type not in ["regular", "honors", "ap", "dual enrollment"]:
-                print("Please enter a valid course type")
+                print("Please enter a valid course type (Regular, Honors, AP, Dual Enrollment)")
                 course_type = None
         
-        # Store data for each course as a dictionary and append it to the list
-        course_data = {
+        course_info = {
             "Course Name": course_name,
             "Grade": grade,
             "Course Type": course_type
         }
-        courses.append(course_data)
+        courses.append(course_info)
         print()
         counter += 1
     return courses
 
+# Calculate unweighted GPA
 def calculate_unweighted_gpa(courses):
     total_points = 0
     total_courses = len(courses)
@@ -68,17 +78,17 @@ def calculate_unweighted_gpa(courses):
             total_points += 2.0
         elif 69 >= grade >= 60:
             total_points += 1.0
-        # If grade is below 60, no points are added (considered as failing)
     unweighted_gpa = total_points / total_courses
     return unweighted_gpa
 
+# Calculate weighted GPA
 def calculate_weighted_gpa(courses):
     total_points = 0
     total_courses = len(courses)
     for course in courses:
         grade = course["Grade"]
-        course_distinction = course["Course Type"].lower()  # Convert course type to lowercase for comparison
-        if course_distinction in ["honors", "ap", "dual enrollment", "honor", "de", "dualenrollment", "h"]:
+        course_type = course.get("Course Type", "").lower()
+        if course_type in ["honors", "ap", "dual enrollment", "honor", "de", "dualenrollment", "h"]:
             total_points += 1
         if 100 >= grade >= 90:
             total_points += 4.0
@@ -88,16 +98,31 @@ def calculate_weighted_gpa(courses):
             total_points += 2.0
         elif 69 >= grade >= 60:
             total_points += 1.0
-        # If grade is below 60, no points are added (considered as failing)
     weighted_gpa = total_points / total_courses
     return weighted_gpa
 
-course_input = get_course_input()
-course_data = gpa_inputs(course_input)  # Pass course_input
-print("-" * 60)
+# Get user's name
+user_name = get_user_name()
 
+# Get the number of courses
+num_courses = get_number_of_courses()
+# Collect course information based on user input
+course_data = collect_course_data(num_courses)
+
+# Display GPA results
+print("-" * 60)
 unweighted_gpa = calculate_unweighted_gpa(course_data)
 weighted_gpa = calculate_weighted_gpa(course_data)
-print(f"Your unweighted GPA is: {unweighted_gpa:.2f}")
-print(f"Your weighted GPA is: {weighted_gpa:.2f}")
+print(f"Hi {user_name}!")
+print("Here's your GPA information:")
+print("Unweighted GPA: {:.2f}".format(unweighted_gpa))
+print("Weighted GPA: {:.2f}".format(weighted_gpa))
 print("-" * 60)
+
+# Save user-specific data to a file
+try:
+    with open(f"{user_name}_gpa_data.json", "w") as file:
+        json.dump(course_data, file, indent=4)
+    print(f"Data for {user_name} saved successfully!")
+except Exception as e:
+    print("Error while saving data:", e)
