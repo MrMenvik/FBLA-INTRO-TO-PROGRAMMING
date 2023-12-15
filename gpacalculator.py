@@ -1,4 +1,5 @@
 import json
+from pymongo import MongoClient
 
 # Display welcome message
 print("-" * 60)
@@ -60,7 +61,7 @@ def collect_course_data(num_courses):
         course_type = None
         while course_type is None:
             course_type = input("Regular, Honors, AP/Dual Enrollment?: ").lower()
-            if course_type not in ["regular", "honors", "ap", "dual enrollment"]:
+            if course_type not in ["regular", "honors", "ap", "dual enrollment", "reg", "r", "h", "de"]:
                 print("Please enter a valid course type (Regular, Honors, AP, Dual Enrollment)")
                 course_type = None
         
@@ -129,27 +130,30 @@ print("Unweighted GPA: {:.2f}".format(unweighted_gpa))
 print("Weighted GPA: {:.2f}".format(weighted_gpa))
 print("-" * 60)
 
-# Save user-specific data to a file
-def ask_save_data():
-    while True:
-        choice = input("Do you want to save your GPA data? (yes/no): ").lower()
-        if choice in ["yes", "y"]:
-            return True
-        elif choice in ["no", "n"]:
-            return False
-        else:
-            print("Please enter 'yes' or 'no'.")
-
-# Get user's choice for saving data
-save_data = ask_save_data()
-
-# Save user-specific data to a file if chosen
-if save_data:
+# Save user-specific data to MongoDB
+def save_to_mongodb(data):
     try:
-        with open(f"{user_name}_gpa_data.json", "w") as file:
-            json.dump(course_data, file, indent=4)
-        print(f"Data for {user_name} saved successfully!")
+        # Connect to MongoDB
+        client = MongoClient('mongodb://localhost:27017')
+        db = client['gpa_data']
+        collection = db['user_data']
+        
+        # Insert the data into MongoDB
+        collection.insert_one(data)
+        print("Data uploaded to MongoDB successfully!")
+        print("Thanks for using GPA Calculator!")
     except Exception as e:
-        print("Error while saving data:", e)
+        print("Error while uploading data to MongoDB:", e)
+
+# Save user-specific data to MongoDB if chosen
+if input("Do you want to save your data to MongoDB? (yes/no): ").lower() == "yes":
+    user_data = {
+        "User": user_name,
+        "Courses": course_data,
+        "Unweighted GPA": unweighted_gpa,
+        "Weighted GPA": weighted_gpa
+    }
+    save_to_mongodb(user_data)
 else:
-    print("Data not saved.")
+    print("Not uploaded to MongoDB.")
+    print("Thank you for using GPA Calculator!")
