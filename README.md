@@ -22,20 +22,18 @@ Welcome to the GPA Calculator! This tool helps you calculate your GPA based on t
 - Python 3.x
 - `pymongo` (if storing data in MongoDB)
 - `mongodb` (if using MongoDB)
-- `MySQL Connector` (if storing data in MySQL)
 
 ## Installation
 
-1. Clone this repository:
+1. Clone this repository: git clone https://github.com/MrMenvik/FBLA-INTRO-TO-PROGRAMMING.git
 git clone https://github.com/yourusername/gpa-calculator.git
 
 2. Install the required Python packages:
-pip install pymongo mysql-connector-python
+pip install pymongo
 
 ## Configuration
 
 - For MongoDB: Ensure MongoDB is running locally (`localhost:27017`).
-- For MySQL: Update the MySQL credentials in the code before use.
 
 ## Usage
 
@@ -47,7 +45,3 @@ Follow the prompts and choose whether to save data to MongoDB.
 ## Contributions
 
 Contributions are welcome! Feel free to fork this repository and submit pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
