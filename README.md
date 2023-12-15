@@ -33,3 +33,7 @@ To utilize the project, follow these steps:
 
 4. **View GPA Calculation**: The program will process the entered data and display the calculated GPA based on the provided grading scale.
 
+# To do List
+finish styles and parameters
+database saved to mongodb?
+print out course details before calculations
