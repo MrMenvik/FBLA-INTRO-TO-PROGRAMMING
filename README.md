@@ -6,34 +6,42 @@
 - **School**: Mountain Ridge High School
 - **Grade Level**: 10th Grade
 
-## Description
+# GPA Calculator
 
-This project is a GPA calculator designed for FBLA's 2023-2024 Intro to Programming. It functions by gathering course information and grades, then presents the calculated GPA based on the following grading scale:
+Welcome to the GPA Calculator! This tool helps you calculate your GPA based on the courses you've taken.
 
-| Grade | Honor Points | Grade | Grade Points |
-|-------|--------------|-------|--------------|
-| A     | 5            | A     | 4            |
-| B     | 4            | B     | 3            |
-| C     | 3            | C     | 2            |
-| D     | 1            | D     | 1            |
-| F     | 0            | F     | 0            |
+## Features
+
+- **User Input:** Collects user's name and course information to calculate GPA.
+- **Unweighted GPA Calculation:** Calculates GPA based on a standard grading scale.
+- **Weighted GPA Calculation:** Calculates GPA with consideration for course types (Regular, Honors, AP, etc.).
+- **Data Storage:** Option to store user data in a MongoDB database.
+
+## Requirements
+
+- Python 3.x
+- `pymongo` (if storing data in MongoDB)
+- `mongodb` (if using MongoDB)
+
+## Installation
+
+1. Clone this repository: git clone https://github.com/MrMenvik/FBLA-INTRO-TO-PROGRAMMING.git
+git clone https://github.com/yourusername/gpa-calculator.git
+
+2. Install the required Python packages:
+pip install pymongo
+
+## Configuration
+
+- For MongoDB: Ensure MongoDB is running locally (`localhost:27017`).
 
 ## Usage
 
-To utilize the project, follow these steps:
+Run the script in your terminal:
+python gpa_calculator.py
 
-1. **Clone the Repository**: Clone this repository to your local machine using the command:
-    ```
-    git clone https://github.com/MrMenvik/FBLA-INTRO-TO-PROGRAMMING.git
-    ```
+Follow the prompts and choose whether to save data to MongoDB.
 
-2. **Run the Program**: Run the project through a suitable development environment or IDE that supports the programming language used for this project (Python). Execute the main file or program to launch the GPA calculator.
+## Contributions
 
-3. **Input Course Information**: Enter your course information, including course names and respective grades.
-
-4. **View GPA Calculation**: The program will process the entered data and display the calculated GPA based on the provided grading scale.
-
-# To do List
-finish styles and parameters
-database saved to mongodb?
-print out course details before calculations
+Contributions are welcome! Feel free to fork this repository and submit pull requests.
