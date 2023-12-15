@@ -24,7 +24,7 @@ To utilize the project, follow these steps:
 
 1. **Clone the Repository**: Clone this repository to your local machine using the command:
     ```
-    git clone https://github.com/MaanvikP/FBLA-2023-24-Intro-to-Programming.git
+    git clone https://github.com/MrMenvik/FBLA-INTRO-TO-PROGRAMMING.git
     ```
 
 2. **Run the Program**: Run the project through a suitable development environment or IDE that supports the programming language used for this project (Python). Execute the main file or program to launch the GPA calculator.
