@@ -4,6 +4,16 @@ import json
 print("-" * 60)
 print("Welcome to GPA Calculator")
 print("-" * 60)
+print("Here is the grading scale you get your GPA from: ")
+print("")
+print("| Grade | Honor Points | Grade | Grade Points |")
+print("|-------|--------------|-------|--------------|")
+print("| A     | 5            | A     | 4            |")
+print("| B     | 4            | B     | 3            |")
+print("| C     | 3            | C     | 2            |")
+print("| D     | 1            | D     | 1            |")
+print("| F     | 0            | F     | 0            |")
+print("-" * 60)
 
 # Function to get the user's name
 def get_user_name():
@@ -120,9 +130,26 @@ print("Weighted GPA: {:.2f}".format(weighted_gpa))
 print("-" * 60)
 
 # Save user-specific data to a file
-try:
-    with open(f"{user_name}_gpa_data.json", "w") as file:
-        json.dump(course_data, file, indent=4)
-    print(f"Data for {user_name} saved successfully!")
-except Exception as e:
-    print("Error while saving data:", e)
+def ask_save_data():
+    while True:
+        choice = input("Do you want to save your GPA data? (yes/no): ").lower()
+        if choice in ["yes", "y"]:
+            return True
+        elif choice in ["no", "n"]:
+            return False
+        else:
+            print("Please enter 'yes' or 'no'.")
+
+# Get user's choice for saving data
+save_data = ask_save_data()
+
+# Save user-specific data to a file if chosen
+if save_data:
+    try:
+        with open(f"{user_name}_gpa_data.json", "w") as file:
+            json.dump(course_data, file, indent=4)
+        print(f"Data for {user_name} saved successfully!")
+    except Exception as e:
+        print("Error while saving data:", e)
+else:
+    print("Data not saved.")
