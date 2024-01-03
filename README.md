@@ -44,3 +44,8 @@ Follow the prompts and choose whether to save data to MongoDB.
 ## Contributions
 
 Contributions are welcome! Feel free to fork this repository and submit pull requests.
+
+## TDL
+1. Finish program implementation and database store
+2. Complete data bacup and can be accessed by student any time
+3. optimize code and finish
