@@ -43,11 +43,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('generateBoxesBtn').addEventListener('click', function() {
                 var numCourses = parseInt(document.getElementById('numCoursesInput').value);
-
+    
                 if (!isNaN(numCourses) && numCourses >= 1 && numCourses <= 36) {
                     var courseSections = document.getElementById('courseSections');
                     courseSections.innerHTML = '';
-
+    
                     for (var i = 0; i < numCourses; i++) {
                         var courseSection = document.createElement('div');
                         courseSection.className = 'course-section';
@@ -70,32 +70,32 @@
                                 </div>
                             </div>
                         `;
-
+    
                         courseSections.appendChild(courseSection);
                     }
-
+    
                     document.getElementById('generateBoxesBtn').style.display = 'none';
                     document.getElementById('calculateBtn').style.display = 'block';
                 } else {
                     alert('Please enter a valid number of courses between 1 and 36.');
                 }
             });
-
+    
             document.getElementById('calculateBtn').addEventListener('click', function() {
                 var unweightedGPA = calculateUnweightedGPA();
                 var weightedGPA = calculateWeightedGPA();
-
+    
                 document.getElementById('unweightedResult').textContent = 'Unweighted GPA: ' + unweightedGPA.toFixed(2);
                 document.getElementById('weightedResult').textContent = 'Weighted GPA: ' + weightedGPA.toFixed(2);
-
+    
                 document.getElementById('resultSection').style.display = 'block';
             });
         });
-
+    
         function calculateUnweightedGPA() {
             var totalPoints = 0;
             var totalCourses = 0;
-
+    
             for (var i = 0; i < 36; i++) {
                 var grade = parseInt(document.getElementById('grade' + i).value);
                 if (!isNaN(grade) && grade >= 0 && grade <= 100) {
@@ -111,25 +111,25 @@
                     }
                 }
             }
-
+    
             return totalPoints / totalCourses;
         }
-
+    
         function calculateWeightedGPA() {
             var totalPoints = 0;
             var totalCourses = 0;
-
+    
             for (var i = 0; i < 36; i++) {
                 var grade = parseInt(document.getElementById('grade' + i).value);
                 var courseType = document.getElementById('course_type' + i).value.toLowerCase();
-
+    
                 if (!isNaN(grade) && grade >= 0 && grade <= 100) {
                     totalCourses++;
-
+    
                     if (courseType === 'honors' || courseType === 'h' || courseType === 'ap' || courseType === 'dual enrollment' || courseType === 'de') {
                         totalPoints += 1;
                     }
-
+    
                     if (grade >= 90) {
                         totalPoints += 4.0;
                     } else if (grade >= 80) {
@@ -141,7 +141,7 @@
                     }
                 }
             }
-
+    
             return totalPoints / totalCourses;
         }
     </script>
