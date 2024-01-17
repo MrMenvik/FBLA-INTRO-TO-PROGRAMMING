@@ -75,7 +75,7 @@
                     }
     
                     document.getElementById('generateBoxesBtn').style.display = 'none';
-                    document.getElementById('calculateBtn').style.display = 'block';
+                    document.getElementById('calculateBtn').style.removeProperty('display');
                 } else {
                     alert('Please enter a valid number of courses between 1 and 36.');
                 }
