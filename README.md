@@ -26,7 +26,6 @@ Welcome to the GPA Calculator! This tool helps you calculate your GPA based on t
 ## Installation
 
 1. Clone this repository: git clone https://github.com/MrMenvik/FBLA-INTRO-TO-PROGRAMMING.git
-git clone https://github.com/yourusername/gpa-calculator.git
 
 2. Install the required Python packages:
 pip install pymongo
@@ -45,3 +44,8 @@ Follow the prompts and choose whether to save data to MongoDB.
 ## Contributions
 
 Contributions are welcome! Feel free to fork this repository and submit pull requests.
+
+## TDL
+1. Finish program implementation and database store
+2. Complete data bacup and can be accessed by student any time
+3. optimize code and finish
