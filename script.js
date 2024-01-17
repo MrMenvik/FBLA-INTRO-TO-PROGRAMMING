@@ -1,26 +1,28 @@
 function calculateGPA() {
-    const gradeSelect = document.getElementById("grade");
-    const selectedGrade = gradeSelect.value;
+    const name = document.getElementById("name").value;
+    const numCourses = parseInt(document.getElementById("numCourses").value);
 
-    const regularScale = {
-        'A': 4.00,
-        'B': 3.00,
-        'C': 2.00,
-        'D': 1.00,
-        'F': 0.00
-    };
+    let coursesHtml = "";
+    for (let i = 1; i <= numCourses; i++) {
+        coursesHtml += `
+            <div class="course-container">
+                <label for="courseName${i}">Course ${i} Name:</label>
+                <input type="text" id="courseName${i}" placeholder="Enter course name">
 
-    const honorsAPScale = {
-        'A-': 5.00,
-        'B-': 4.00,
-        'C-': 3.00,
-        'D-': 2.00,
-        'F': 1.00
-    };
+                <label for="grade${i}">Grade in Numbers:</label>
+                <input type="number" id="grade${i}" placeholder="Enter grade">
 
-    const isHonorsAP = selectedGrade.includes('-');
-    const scale = isHonorsAP ? honorsAPScale : regularScale;
+                <label for="courseType${i}">Type of Course:</label>
+                <select id="courseType${i}">
+                    <option value="regular">Regular</option>
+                    <option value="honors">Honors</option>
+                    <option value="ap">AP</option>
+                </select>
+            </div>
+        `;
+    }
 
-    const gpa = scale[selectedGrade];
-    document.getElementById("result").textContent = `Your GPA: ${gpa.toFixed(2)}`;
+    document.getElementById("courses-container").innerHTML = coursesHtml;
+
+    // Additional logic for calculating GPA based on the entered courses can be added here
 }

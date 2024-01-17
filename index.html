@@ -9,18 +9,14 @@
 <body>
     <div class="calculator-container">
         <h1>GPA Calculator</h1>
-        <label for="grade">Select Grade:</label>
-        <select id="grade">
-            <option value="A">A</option>
-            <option value="A-">A-</option>
-            <option value="B">B</option>
-            <option value="B-">B-</option>
-            <option value="C">C</option>
-            <option value="C-">C-</option>
-            <option value="D">D</option>
-            <option value="D-">D-</option>
-            <option value="F">F</option>
-        </select>
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+        
+        <label for="numCourses">Number of Courses:</label>
+        <input type="number" id="numCourses" placeholder="Enter number of courses">
+
+        <div id="courses-container"></div>
+        
         <button onclick="calculateGPA()">Calculate GPA</button>
         <p id="result">Your GPA: </p>
     </div>
