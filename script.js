@@ -1,6 +1,32 @@
+function generateCourseInputs(numCourses) {
+    let coursesHtml = "";
+    for (let i = 1; i <= numCourses; i++) {
+        coursesHtml += `
+            <div class="course-container">
+                <label for="courseName${i}">Course ${i} Name:</label>
+                <input type="text" id="courseName${i}" placeholder="Enter course name">
+
+                <label for="grade${i}">Grade in Percentage:</label>
+                <input type="number" id="grade${i}" placeholder="Enter percentage">
+
+                <label for="courseType${i}">Type of Course:</label>
+                <select id="courseType${i}">
+                    <option value="regular">Regular</option>
+                    <option value="honors">Honors</option>
+                    <option value="ap">AP</option>
+                </select>
+            </div>
+        `;
+    }
+
+    document.getElementById("courses-container").innerHTML = coursesHtml;
+}
+
 function calculateGPA() {
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
+
+    generateCourseInputs(numCourses);
 
     let totalCredits = 0;
     let totalGradePoints = 0;
