@@ -1,4 +1,5 @@
-function generateCourseInputs(numCourses) {
+function generateCourseInputs() {
+    const numCourses = parseInt(document.getElementById("numCourses").value);
     let coursesHtml = "";
     for (let i = 1; i <= numCourses; i++) {
         coursesHtml += `
@@ -25,8 +26,6 @@ function generateCourseInputs(numCourses) {
 function calculateGPA() {
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
-
-    generateCourseInputs(numCourses);
 
     let totalCredits = 0;
     let totalGradePoints = 0;
