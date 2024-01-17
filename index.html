@@ -97,7 +97,7 @@
             var totalCourses = 0;
     
             for (var i = 0; i < 36; i++) {
-                var grade = parseInt(document.getElementById('grade' + i).value);
+                var grade = parseInt(document.getElementById(`grade${i}`).value);
                 if (!isNaN(grade) && grade >= 0 && grade <= 100) {
                     totalCourses++;
                     if (grade >= 90) {
@@ -120,8 +120,8 @@
             var totalCourses = 0;
     
             for (var i = 0; i < 36; i++) {
-                var grade = parseInt(document.getElementById('grade' + i).value);
-                var courseType = document.getElementById('course_type' + i).value.toLowerCase();
+                var grade = parseInt(document.getElementById(`grade${i}`).value);
+                var courseType = document.getElementById(`course_type${i}`).value.toLowerCase();
     
                 if (!isNaN(grade) && grade >= 0 && grade <= 100) {
                     totalCourses++;
