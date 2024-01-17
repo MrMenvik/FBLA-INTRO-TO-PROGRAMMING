@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .course-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Welcome to GPA Calculator</h1>
+
+        <form class="mt-4" id="gpaForm">
+            <div class="form-group">
+                <label for="user_name">Please enter your name:</label>
+                <input type="text" class="form-control" id="user_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="num_courses">How many courses have you taken? (1-36):</label>
+                <input type="number" class="form-control" id="numCoursesInput" min="1" max="36" required>
+            </div>
+
+            <div id="courseSections"></div>
+
+            <button type="button" class="btn btn-primary mt-3" id="generateBoxesBtn">Generate Boxes</button>
+            <button type="button" class="btn btn-primary mt-3" id="calculateBtn">Calculate GPA</button>
+
+            <div id="resultSection" style="display: none;">
+                <h3 class="mt-4">GPA Results</h3>
+                <p id="unweightedResult"></p>
+                <p id="weightedResult"></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('generateBoxesBtn').addEventListener('click', function() {
+                var numCourses = parseInt(document.getElementById('numCoursesInput').value);
+
+                if (!isNaN(numCourses) && numCourses >= 1 && numCourses <= 36) {
+                    var courseSections = document.getElementById('courseSections');
+                    courseSections.innerHTML = '';
+
+                    for (var i = 0; i < numCourses; i++) {
+                        var courseSection = document.createElement('div');
+                        courseSection.className = 'course-section';
+                        courseSection.innerHTML = `
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Course ${i + 1}</h5>
+                                    <div class="form-group">
+                                        <label for="course_name${i}">Course Name:</label>
+                                        <input type="text" class="form-control" id="course_name${i}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grade${i}">Grade:</label>
+                                        <input type="number" class="form-control" id="grade${i}" min="0" max="100" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="course_type${i}">Course Type (Regular, Honors, AP/Dual Enrollment):</label>
+                                        <input type="text" class="form-control" id="course_type${i}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        courseSections.appendChild(courseSection);
+                    }
+
+                    document.getElementById('generateBoxesBtn').style.display = 'none';
+                    document.getElementById('calculateBtn').style.display = 'block';
+                } else {
+                    alert('Please enter a valid number of courses between 1 and 36.');
+                }
+            });
+
+            document.getElementById('calculateBtn').addEventListener('click', function() {
+                var unweightedGPA = calculateUnweightedGPA();
+                var weightedGPA = calculateWeightedGPA();
+
+                document.getElementById('unweightedResult').textContent = 'Unweighted GPA: ' + unweightedGPA.toFixed(2);
+                document.getElementById('weightedResult').textContent = 'Weighted GPA: ' + weightedGPA.toFixed(2);
+
+                document.getElementById('resultSection').style.display = 'block';
+            });
+        });
+
+        function calculateUnweightedGPA() {
+            var totalPoints = 0;
+            var totalCourses = 0;
+
+            for (var i = 0; i < 36; i++) {
+                var grade = parseInt(document.getElementById('grade' + i).value);
+                if (!isNaN(grade) && grade >= 0 && grade <= 100) {
+                    totalCourses++;
+                    if (grade >= 90) {
+                        totalPoints += 4.0;
+                    } else if (grade >= 80) {
+                        totalPoints += 3.0;
+                    } else if (grade >= 70) {
+                        totalPoints += 2.0;
+                    } else if (grade >= 60) {
+                        totalPoints += 1.0;
+                    }
+                }
+            }
+
+            return totalPoints / totalCourses;
+        }
+
+        function calculateWeightedGPA() {
+            var totalPoints = 0;
+            var totalCourses = 0;
+
+            for (var i = 0; i < 36; i++) {
+                var grade = parseInt(document.getElementById('grade' + i).value);
+                var courseType = document.getElementById('course_type' + i).value.toLowerCase();
+
+                if (!isNaN(grade) && grade >= 0 && grade <= 100) {
+                    totalCourses++;
+
+                    if (courseType === 'honors' || courseType === 'h' || courseType === 'ap' || courseType === 'dual enrollment' || courseType === 'de') {
+                        totalPoints += 1;
+                    }
+
+                    if (grade >= 90) {
+                        totalPoints += 4.0;
+                    } else if (grade >= 80) {
+                        totalPoints += 3.0;
+                    } else if (grade >= 70) {
+                        totalPoints += 2.0;
+                    } else if (grade >= 60) {
+                        totalPoints += 1.0;
+                    }
+                }
+            }
+
+            return totalPoints / totalCourses;
+        }
+    </script>
+</body>
+</html>
