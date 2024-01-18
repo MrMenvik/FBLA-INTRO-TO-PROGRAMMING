@@ -30,9 +30,3 @@ No installation is required. Simply access the [GPA Calculator](https://mrmenvik
 ## Background Image
 
 The background image used in the application is sourced from [here](https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/234/2017/07/13194106/11995.png).
-
-## Author
-
-- **Author:** Your Name
-
-Feel free to explore and make the most of the GPA Calculator web application! Contributions are welcome. If you encounter any issues or have suggestions for improvement, please [submit an issue](#).
