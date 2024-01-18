@@ -1,12 +1,34 @@
-let unweightedGPA = 0;
-let weightedGPA = 0;
+function generateCourseInputs() {
+    const numCourses = parseInt(document.getElementById("numCourses").value);
+    let coursesHtml = "";
+    for (let i = 1; i <= numCourses; i++) {
+        coursesHtml += `
+            <div class="course-container">
+                <label for="courseName${i}">Course ${i} Name:</label>
+                <input type="text" id="courseName${i}" placeholder="Enter course name">
+
+                <label for="grade${i}">Grade in Percentage:</label>
+                <input type="number" id="grade${i}" placeholder="Enter percentage">
+
+                <label for="courseType${i}">Type of Course:</label>
+                <select id="courseType${i}">
+                    <option value="regular">Regular</option>
+                    <option value="honors">Honors</option>
+                    <option value="ap">AP</option>
+                </select>
+            </div>
+        `;
+    }
+
+    document.getElementById("courses-container").innerHTML = coursesHtml;
+}
 
 function calculateGPA() {
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
 
-    unweightedGPA = 0;
-    weightedGPA = 0;
+    let totalCredits = 0;
+    let totalGradePoints = 0;
 
     for (let i = 1; i <= numCourses; i++) {
         const courseName = document.getElementById(`courseName${i}`).value;
@@ -34,17 +56,14 @@ function calculateGPA() {
             else scale = 1.00;
         }
 
-        unweightedGPA += scale;
-        weightedGPA += scale * 0.1; // Adjust the weight factor as needed
+        totalCredits += 1;
+        totalGradePoints += scale;
     }
 
-    const totalCredits = numCourses;
-    const unweightedResult = unweightedGPA / totalCredits;
-    const weightedResult = weightedGPA / totalCredits;
-
-    document.getElementById("result").textContent = `Hello ${name}, Your GPA: ${unweightedResult.toFixed(2)}`;
-    document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedResult.toFixed(2)}`;
-    document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedResult.toFixed(2)}`;
+    const gpa = totalGradePoints / totalCredits;
+    document.getElementById("result").textContent = `Hello ${name}, Your GPA: ${gpa.toFixed(2)}`;
+    document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${gpa.toFixed(2)}`;
+    document.getElementById("weightedGPA").textContent = `Weighted GPA: ${(gpa + 0.1).toFixed(2)}`; // Adjust the weight factor as needed
 }
 
 function saveToDatabase() {
