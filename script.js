@@ -5,7 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
 function generateCourseInputs(event) {
     event.preventDefault();
 
-    const numCourses = Math.min(parseInt(document.getElementById("numCourses").value), 36);
+    const numCourses = parseInt(document.getElementById("numCourses").value);
+
+    if (numCourses > 36) {
+        alert("Please enter a number between 1 and 36.");
+        return;
+    }
+
     let coursesHtml = "";
     for (let i = 1; i <= numCourses; i++) {
         coursesHtml += `
@@ -28,8 +34,8 @@ function generateCourseInputs(event) {
 
     const coursesContainer = document.getElementById("courses-container");
     coursesContainer.innerHTML = coursesHtml;
-    coursesContainer.style.height = "300px"; // Set a fixed height for the container
-    coursesContainer.style.overflow = "auto"; // Enable scrolling when the number of course input boxes is large
+    coursesContainer.style.height = "300px";
+    coursesContainer.style.overflow = "auto";
 }
 
 function calculateWeightedGPA(percentage, courseType) {
