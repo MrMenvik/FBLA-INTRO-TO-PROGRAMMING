@@ -25,15 +25,23 @@ function generateCourseInputs(event) {
     document.getElementById("courses-container").innerHTML = coursesHtml;
 }
 
+function calculateUnweightedGPA(percentage) {
+    if (percentage >= 90) return 4.00;
+    else if (percentage >= 80) return 3.00;
+    else if (percentage >= 70) return 2.00;
+    else if (percentage >= 60) return 1.00;
+    else return 0.00;
+}
+
 function calculateGPA() {
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
 
     let totalCredits = 0;
-    let totalGradePoints = 0;
+    let totalUnweightedGradePoints = 0;
+    let totalWeightedGradePoints = 0;
 
     for (let i = 1; i <= numCourses; i++) {
-        const courseName = document.getElementById(`courseName${i}`).value;
         const percentageInput = document.getElementById(`grade${i}`);
         const courseType = document.getElementById(`courseType${i}`).value;
 
@@ -43,27 +51,28 @@ function calculateGPA() {
             return;
         }
 
-        let scale;
+        let unweightedScale = calculateUnweightedGPA(percentage);
+
+        let weightedScale;
         if (courseType === "regular") {
-            if (percentage >= 90) scale = 4.00;
-            else if (percentage >= 80) scale = 3.00;
-            else if (percentage >= 70) scale = 2.00;
-            else if (percentage >= 60) scale = 1.00;
-            else scale = 0.00;
+            weightedScale = unweightedScale * 1.1; // Adjust the weight factor as needed
         } else if (courseType === "honors" || courseType === "ap") {
-            if (percentage >= 90) scale = 5.00;
-            else if (percentage >= 80) scale = 4.00;
-            else if (percentage >= 70) scale = 3.00;
-            else if (percentage >= 60) scale = 2.00;
-            else scale = 1.00;
+            if (percentage >= 90) weightedScale = 5.00;
+            else if (percentage >= 80) weightedScale = 4.00;
+            else if (percentage >= 70) weightedScale = 3.00;
+            else if (percentage >= 60) weightedScale = 2.00;
+            else weightedScale = 1.00;
         }
 
         totalCredits += 1;
-        totalGradePoints += scale;
+        totalUnweightedGradePoints += unweightedScale;
+        totalWeightedGradePoints += weightedScale;
     }
 
-    const gpa = totalGradePoints / totalCredits;
-    document.getElementById("result").textContent = `Hello ${name}, Your GPA: ${gpa.toFixed(2)}`;
-    document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${gpa.toFixed(2)}`;
-    document.getElementById("weightedGPA").textContent = `Weighted GPA: ${(gpa + 0.1).toFixed(2)}`; // Adjust the weight factor as needed
+    const unweightedGPA = totalUnweightedGradePoints / totalCredits;
+    const weightedGPA = totalWeightedGradePoints / totalCredits;
+
+    document.getElementById("result").textContent = `Hello ${name}, Your GPA:`;
+    document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedGPA.toFixed(2)}`;
+    document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedGPA.toFixed(2)}`;
 }
