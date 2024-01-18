@@ -41,6 +41,14 @@ function calculateWeightedGPA(percentage, courseType) {
     }
 }
 
+function calculateUnweightedGPA(percentage) {
+    if (percentage >= 90) return 4.00;
+    else if (percentage >= 80) return 3.00;
+    else if (percentage >= 70) return 2.00;
+    else if (percentage >= 60) return 1.00;
+    else return 0.00;
+}
+
 function calculateGPA() {
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
@@ -79,4 +87,12 @@ function calculateGPA() {
     document.getElementById("result").textContent = `Hello ${name}, Your GPA:`;
     document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedGPA.toFixed(2)}`;
     document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedGPA.toFixed(2)}`;
+}
+
+function resetForm() {
+    document.getElementById("gpaForm").reset();
+    document.getElementById("courses-container").innerHTML = '';
+    document.getElementById("result").textContent = 'Your GPA: ';
+    document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
+    document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
 }

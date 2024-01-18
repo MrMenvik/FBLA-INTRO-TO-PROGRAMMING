@@ -7,7 +7,7 @@
     <title>GPA Calculator</title>
 </head>
 <body>
-    <form id="gpaForm" onsubmit="return false">
+    <form id="gpaForm">
         <div class="calculator-container">
             <h1>GPA Calculator</h1>
             <label for="name">Your Name:</label>
@@ -21,6 +21,7 @@
             <div id="courses-container"></div>
             
             <button onclick="calculateGPA()">Calculate GPA</button>
+            <button onclick="resetForm()">Reset Form</button>
             <p id="result">Your GPA: </p>
             <p id="unweightedGPA">Unweighted GPA: </p>
             <p id="weightedGPA">Weighted GPA: </p>
