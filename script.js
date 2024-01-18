@@ -1,5 +1,5 @@
 function generateCourseInputs(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     const numCourses = parseInt(document.getElementById("numCourses").value);
     let coursesHtml = "";
@@ -25,12 +25,20 @@ function generateCourseInputs(event) {
     document.getElementById("courses-container").innerHTML = coursesHtml;
 }
 
-function calculateUnweightedGPA(percentage) {
-    if (percentage >= 90) return 4.00;
-    else if (percentage >= 80) return 3.00;
-    else if (percentage >= 70) return 2.00;
-    else if (percentage >= 60) return 1.00;
-    else return 0.00;
+function calculateWeightedGPA(percentage, courseType) {
+    if (courseType === "regular") {
+        if (percentage >= 90) return 4.00;
+        else if (percentage >= 80) return 3.00;
+        else if (percentage >= 70) return 2.00;
+        else if (percentage >= 60) return 1.00;
+        else return 0.00;
+    } else if (courseType === "honors" || courseType === "ap") {
+        if (percentage >= 90) return 5.00;
+        else if (percentage >= 80) return 4.00;
+        else if (percentage >= 70) return 3.00;
+        else if (percentage >= 60) return 2.00;
+        else return 1.00;
+    }
 }
 
 function calculateGPA() {
@@ -55,13 +63,9 @@ function calculateGPA() {
 
         let weightedScale;
         if (courseType === "regular") {
-            weightedScale = unweightedScale * 1.1; // Adjust the weight factor as needed
+            weightedScale = calculateWeightedGPA(percentage, courseType) * 1.1;
         } else if (courseType === "honors" || courseType === "ap") {
-            if (percentage >= 90) weightedScale = 5.00;
-            else if (percentage >= 80) weightedScale = 4.00;
-            else if (percentage >= 70) weightedScale = 3.00;
-            else if (percentage >= 60) weightedScale = 2.00;
-            else weightedScale = 1.00;
+            weightedScale = calculateWeightedGPA(percentage, courseType);
         }
 
         totalCredits += 1;

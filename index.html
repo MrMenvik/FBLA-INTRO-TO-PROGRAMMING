@@ -7,14 +7,14 @@
     <title>GPA Calculator</title>
 </head>
 <body>
-    <form id="gpaForm" onsubmit="return false"> <!-- Add onsubmit attribute to prevent form submission -->
+    <form id="gpaForm" onsubmit="return false">
         <div class="calculator-container">
             <h1>GPA Calculator</h1>
             <label for="name">Your Name:</label>
             <input type="text" id="name" placeholder="Enter your name">
             
-            <label for="numCourses">Number of Courses:</label>
-            <input type="number" id="numCourses" placeholder="Enter number of courses">
+            <label for="numCourses">Number of Courses (Max 36):</label>
+            <input type="number" id="numCourses" placeholder="Enter number of courses" max="36">
             
             <button onclick="generateCourseInputs(event)">Generate Course Inputs</button>
 
