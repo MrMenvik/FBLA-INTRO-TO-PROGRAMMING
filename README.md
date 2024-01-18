@@ -16,16 +16,16 @@ Welcome to the GPA Calculator web application! This tool assists users in calcul
 
 ## How to Use
 
-1. Open the [GPA Calculator](#) web application in your browser.
+1. Open the [GPA Calculator](https://mrmenvik.github.io/FBLA-INTRO-TO-PROGRAMMING/) web application in your browser.
 2. Fill in your name and the number of courses you want to include.
 3. Click "Generate Course Inputs" to input details for each course.
 4. Choose the type of each course (Regular, Honors, AP).
 5. Click "Calculate GPA" to view your GPA results.
 6. Use the "Reset Form" button to start over.
 
-## Installation
+## Installation and Access
 
-No installation is required. Simply access the [GPA Calculator](#) web application through your browser.
+No installation is required. Simply access the [GPA Calculator](https://mrmenvik.github.io/FBLA-INTRO-TO-PROGRAMMING/) web application through your browser.
 
 ## Background Image
 
