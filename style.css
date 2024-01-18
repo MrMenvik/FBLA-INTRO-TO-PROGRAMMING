@@ -1,11 +1,11 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f0f0;
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: #f5f5f5; /* Set a light background color */
 }
 
 .calculator-container {
@@ -13,13 +13,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 400px;
+    width: 80%; /* Adjusted width for a larger container */
+    max-width: 600px; /* Limit the maximum width */
     margin: 50px auto;
-    width: 100%;
 }
 
 h1 {
     color: #333;
+    text-align: center; /* Center the heading text */
 }
 
 label {
@@ -48,7 +49,7 @@ button:hover {
     background-color: #0056b3;
 }
 
-#result {
+#result, #unweightedGPA, #weightedGPA {
     font-weight: bold;
     margin-top: 16px;
     color: #333;
