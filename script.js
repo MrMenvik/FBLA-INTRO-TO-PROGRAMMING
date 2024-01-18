@@ -96,3 +96,7 @@ function resetForm() {
     document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
     document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("calculateButton").addEventListener("click", calculateGPA);
+});
