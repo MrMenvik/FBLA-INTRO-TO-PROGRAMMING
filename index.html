@@ -7,21 +7,23 @@
     <title>GPA Calculator</title>
 </head>
 <body>
-    <div class="calculator-container">
-        <h1>GPA Calculator</h1>
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" placeholder="Enter your name">
-        
-        <label for="numCourses">Number of Courses:</label>
-        <input type="number" id="numCourses" placeholder="Enter number of courses">
-        
-        <button onclick="generateCourseInputs()">Generate Course Inputs</button>
+    <form id="gpaForm">
+        <div class="calculator-container">
+            <h1>GPA Calculator</h1>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            
+            <label for="numCourses">Number of Courses:</label>
+            <input type="number" id="numCourses" placeholder="Enter number of courses">
+            
+            <button onclick="generateCourseInputs()">Generate Course Inputs</button>
 
-        <div id="courses-container"></div>
-        
-        <button onclick="calculateGPA()">Calculate GPA</button>
-        <p id="result">Your GPA: </p>
-    </div>
+            <div id="courses-container"></div>
+            
+            <button onclick="calculateGPA()">Calculate GPA</button>
+            <p id="result">Your GPA: </p>
+        </div>
+    </form>
     <script src="script.js"></script>
 </body>
 </html>

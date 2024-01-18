@@ -32,8 +32,15 @@ function calculateGPA() {
 
     for (let i = 1; i <= numCourses; i++) {
         const courseName = document.getElementById(`courseName${i}`).value;
-        const percentage = parseFloat(document.getElementById(`grade${i}`).value);
+        const percentageInput = document.getElementById(`grade${i}`);
         const courseType = document.getElementById(`courseType${i}`).value;
+
+        // Validate input
+        const percentage = parseFloat(percentageInput.value);
+        if (isNaN(percentage) || percentage < 0 || percentage > 100) {
+            alert("Please enter a valid percentage between 0 and 100.");
+            return;
+        }
 
         let scale;
         if (courseType === "regular") {
