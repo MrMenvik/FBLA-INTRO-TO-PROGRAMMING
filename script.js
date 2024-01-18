@@ -65,7 +65,7 @@ function calculateGPA(event) {
 
         let weightedScale;
         if (courseType === "regular") {
-            weightedScale = calculateWeightedGPA(percentage, courseType) * 1.1;
+            weightedScale = calculateWeightedGPA(percentage, courseType);
         } else if (courseType === "honors" || courseType === "ap") {
             weightedScale = calculateWeightedGPA(percentage, courseType);
         }
@@ -82,7 +82,6 @@ function calculateGPA(event) {
     document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedGPA.toFixed(2)}`;
     document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedGPA.toFixed(2)}`;
 }
-
 
 function resetForm() {
     document.getElementById("gpaForm").reset();
