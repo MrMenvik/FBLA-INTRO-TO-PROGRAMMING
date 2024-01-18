@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("calculateButton").addEventListener("click", calculateGPA);
+});
+
 function generateCourseInputs(event) {
     event.preventDefault();
 
@@ -27,26 +31,14 @@ function generateCourseInputs(event) {
 
 function calculateWeightedGPA(percentage, courseType) {
     if (courseType === "regular") {
-        if (percentage >= 90) return 4.00;
-        else if (percentage >= 80) return 3.00;
-        else if (percentage >= 70) return 2.00;
-        else if (percentage >= 60) return 1.00;
-        else return 0.00;
+        return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
     } else if (courseType === "honors" || courseType === "ap") {
-        if (percentage >= 90) return 5.00;
-        else if (percentage >= 80) return 4.00;
-        else if (percentage >= 70) return 3.00;
-        else if (percentage >= 60) return 2.00;
-        else return 1.00;
+        return percentage >= 90 ? 5.00 : percentage >= 80 ? 4.00 : percentage >= 70 ? 3.00 : percentage >= 60 ? 2.00 : 1.00;
     }
 }
 
 function calculateUnweightedGPA(percentage) {
-    if (percentage >= 90) return 4.00;
-    else if (percentage >= 80) return 3.00;
-    else if (percentage >= 70) return 2.00;
-    else if (percentage >= 60) return 1.00;
-    else return 0.00;
+    return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
 }
 
 function calculateGPA() {
@@ -96,7 +88,3 @@ function resetForm() {
     document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
     document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("calculateButton").addEventListener("click", calculateGPA);
-});
