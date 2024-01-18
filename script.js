@@ -65,26 +65,3 @@ function calculateGPA() {
     document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${gpa.toFixed(2)}`;
     document.getElementById("weightedGPA").textContent = `Weighted GPA: ${(gpa + 0.1).toFixed(2)}`; // Adjust the weight factor as needed
 }
-
-function saveToDatabase() {
-    const dataToSave = {
-        name: document.getElementById("name").value,
-        unweightedGPA: unweightedGPA.toFixed(2),
-        weightedGPA: weightedGPA.toFixed(2),
-    };
-
-    fetch('/saveData', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSave),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Data saved:', data);
-    })
-    .catch(error => {
-        console.error('Error saving data:', error);
-    });
-}
