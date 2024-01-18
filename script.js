@@ -16,6 +16,8 @@ function generateCourseInputs(event) {
     for (let i = 1; i <= numCourses; i++) {
         coursesHtml += `
             <div class="course-container">
+                <h2>Course ${i}</h2>
+
                 <label for="courseName${i}">Course ${i} Name:</label>
                 <input type="text" id="courseName${i}" placeholder="Enter course name">
 
