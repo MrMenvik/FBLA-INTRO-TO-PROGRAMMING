@@ -41,7 +41,9 @@ function calculateUnweightedGPA(percentage) {
     return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
 }
 
-function calculateGPA() {
+function calculateGPA(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
 
@@ -80,6 +82,7 @@ function calculateGPA() {
     document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedGPA.toFixed(2)}`;
     document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedGPA.toFixed(2)}`;
 }
+
 
 function resetForm() {
     document.getElementById("gpaForm").reset();
