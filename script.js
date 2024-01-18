@@ -1,4 +1,6 @@
-function generateCourseInputs() {
+function generateCourseInputs(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
     const numCourses = parseInt(document.getElementById("numCourses").value);
     let coursesHtml = "";
     for (let i = 1; i <= numCourses; i++) {
