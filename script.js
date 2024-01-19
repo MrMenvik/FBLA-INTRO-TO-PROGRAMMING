@@ -10,10 +10,11 @@ function generateCourseInputs(event) {
 
     const numCourses = parseInt(document.getElementById("numCourses").value);
 
-    if (numCourses > 36) {
-        alert("Please enter a number between 1 and 36.");
-        return;
+    if (numCourses <= 0 || numCourses > 36) {
+    alert("Please enter a number between 1 and 36.");
+    return;
     }
+
 
     let coursesHtml = "";
     for (let i = 1; i <= numCourses; i++) {
