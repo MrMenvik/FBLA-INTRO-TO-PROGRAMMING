@@ -1,51 +1,32 @@
-# FBLA 2023-24 Intro to Programming Project by Maanvik Poddar
-
-## Author Information
-
-- **Name**: Maanvik Poddar
-- **School**: Mountain Ridge High School
-- **Grade Level**: 10th Grade
-
 # GPA Calculator
 
-Welcome to the GPA Calculator! This tool helps you calculate your GPA based on the courses you've taken.
+## Introduction
+
+Welcome to the GPA Calculator web application! This tool assists users in calculating their GPA based on the courses they've taken. The application features a user-friendly interface and allows users to input course details to generate accurate GPA calculations.
+
+![GPA Calculator Preview](https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/234/2017/07/13194106/11995.png)
 
 ## Features
 
-- **User Input:** Collects user's name and course information to calculate GPA.
+- **User-Friendly Interface:** Easily input your name, the number of courses, and course details.
+- **Dynamic Course Input:** Generate course input fields based on the specified number of courses.
 - **Unweighted GPA Calculation:** Calculates GPA based on a standard grading scale.
-- **Weighted GPA Calculation:** Calculates GPA with consideration for course types (Regular, Honors, AP, etc.).
-- **Data Storage:** Option to store user data in a MongoDB database.
+- **Weighted GPA Calculation:** Considers different course types (Regular, Honors, AP) for GPA calculation.
+- **Background Image:** Enjoy a dynamic background image for a visually appealing experience.
 
-## Requirements
+## How to Use
 
-- Python 3.x
-- `pymongo` (if storing data in MongoDB)
-- `mongodb` (if using MongoDB)
+1. Open the [GPA Calculator](https://mrmenvik.github.io/FBLA-INTRO-TO-PROGRAMMING/) web application in your browser.
+2. Fill in your name and the number of courses you want to include.
+3. Click "Generate Course Inputs" to input details for each course.
+4. Choose the type of each course (Regular, Honors, AP).
+5. Click "Calculate GPA" to view your GPA results.
+6. Use the "Reset Form" button to start over.
 
-## Installation
+## Installation and Access
 
-1. Clone this repository: git clone https://github.com/MrMenvik/FBLA-INTRO-TO-PROGRAMMING.git
+No installation is required. Simply access the [GPA Calculator](https://mrmenvik.github.io/FBLA-INTRO-TO-PROGRAMMING/) web application through your browser.
 
-2. Install the required Python packages:
-pip install pymongo
+## Background Image
 
-## Configuration
-
-- For MongoDB: Ensure MongoDB is running locally (`localhost:27017`).
-
-## Usage
-
-Run the script in your terminal:
-python gpa_calculator.py
-
-Follow the prompts and choose whether to save data to MongoDB.
-
-## Contributions
-
-Contributions are welcome! Feel free to fork this repository and submit pull requests.
-
-## TDL
-1. Finish program implementation and database store
-2. Complete data bacup and can be accessed by student any time
-3. optimize code and finish
+The background image used in the application is sourced from [here](https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/234/2017/07/13194106/11995.png).
