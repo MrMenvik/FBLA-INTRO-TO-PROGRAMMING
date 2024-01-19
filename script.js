@@ -92,25 +92,6 @@ function calculateGPA() {
     document.getElementById("result").textContent = `Hello ${name}, Your GPA:`;
     document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedGPA.toFixed(2)}`;
     document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedGPA.toFixed(2)}`;
-
-    // Populate userData structure
-    const userData = {
-        userName: name,
-        courses: [],
-        timestamp: new Date().toISOString(),
-    };
-
-    for (let i = 1; i <= numCourses; i++) {
-        const courseData = {
-            courseName: document.getElementById(`courseName${i}`).value,
-            gradePercentage: parseFloat(document.getElementById(`grade${i}`).value),
-            courseType: document.getElementById(`courseType${i}`).value,
-        };
-
-        userData.courses.push(courseData);
-    }
-
-    console.log(userData); // Display userData in the console (you can save it to a file or send it to a server)
 }
 
 function resetForm() {
