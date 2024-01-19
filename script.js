@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("generateButton").addEventListener("click", generateCourseInputs);
     document.getElementById("calculateButton").addEventListener("click", calculateGPA);
-    document.getElementById("downloadButton").addEventListener("click", downloadData);
+    document.getElementById("resetButton").addEventListener("click", resetForm);
+    document.getElementById("saveButton").addEventListener("click", saveData);
     document.getElementById("loadButton").addEventListener("click", loadData);
 });
 
@@ -19,13 +21,10 @@ function generateCourseInputs(event) {
         coursesHtml += `
             <div class="course-container">
                 <h2>Course ${i}</h2>
-
                 <label for="courseName${i}">Course ${i} Name:</label>
                 <input type="text" id="courseName${i}" placeholder="Enter course name">
-
                 <label for="grade${i}">Grade in Percentage:</label>
                 <input type="number" id="grade${i}" placeholder="Enter percentage">
-
                 <label for="courseType${i}">Type of Course:</label>
                 <select id="courseType${i}">
                     <option value="regular">Regular</option>
@@ -104,6 +103,8 @@ function calculateGPA() {
 function resetForm() {
     document.getElementById("gpaForm").reset();
     document.getElementById("courses-container").innerHTML = '';
+    document.getElementById("courses-container").style.height = "auto"; // Reset height
+    document.getElementById("courses-container").style.overflow = "visible"; // Reset overflow
     document.getElementById("result").textContent = 'Your GPA: ';
     document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
     document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
@@ -146,7 +147,7 @@ function loadData() {
         document.getElementById("name").value = storedData.userName;
         document.getElementById("numCourses").value = storedData.courses.length;
 
-        generateCourseInputs(null); // Generate course inputs based on the stored number of courses
+        generateCourseInputs(); // Generate course inputs based on the stored number of courses
 
         for (let i = 1; i <= storedData.courses.length; i++) {
             document.getElementById(`courseName${i}`).value = storedData.courses[i - 1].courseName;

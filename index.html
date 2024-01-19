@@ -17,17 +17,16 @@
             <label for="numCourses">Number of Courses (Max 36):</label>
             <input type="number" id="numCourses" placeholder="Enter number of courses" max="36">
             
-            <button onclick="generateCourseInputs(event)">Generate Course Inputs</button>
+            <button type="button" onclick="generateCourseInputs(event)">Generate Course Inputs</button>
 
             <div id="courses-container"></div>
             
-            <button id="calculateButton" onclick="calculateGPA()">Calculate GPA</button>
-            <button onclick="resetForm()">Reset Form</button>
-            <button onclick="downloadData()">Save Data</button>
-            <button onclick="loadData()">Load Data</button>
+            <button type="button" id="calculateButton" onclick="calculateGPA()">Calculate GPA</button>
             <p id="result">Your GPA: </p>
             <p id="unweightedGPA">Unweighted GPA: </p>
             <p id="weightedGPA">Weighted GPA: </p>
+            <button type="button" id="saveButton" onclick="saveData()">Save Data</button>
+            <button type="button" onclick="resetForm()">Reset Form</button>
         </div>
     </form>
     <script src="script.js"></script>
