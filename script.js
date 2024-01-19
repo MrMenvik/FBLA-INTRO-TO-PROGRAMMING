@@ -52,9 +52,7 @@ function calculateUnweightedGPA(percentage) {
     return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
 }
 
-function calculateGPA(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-
+function calculateGPA() {
     const name = document.getElementById("name").value;
     const numCourses = parseInt(document.getElementById("numCourses").value);
 
@@ -92,6 +90,25 @@ function calculateGPA(event) {
     document.getElementById("result").textContent = `Hello ${name}, Your GPA:`;
     document.getElementById("unweightedGPA").textContent = `Unweighted GPA: ${unweightedGPA.toFixed(2)}`;
     document.getElementById("weightedGPA").textContent = `Weighted GPA: ${weightedGPA.toFixed(2)}`;
+
+    // Populate userData structure
+    const userData = {
+        userName: name,
+        courses: [],
+        timestamp: new Date().toISOString(),
+    };
+
+    for (let i = 1; i <= numCourses; i++) {
+        const courseData = {
+            courseName: document.getElementById(`courseName${i}`).value,
+            gradePercentage: parseFloat(document.getElementById(`grade${i}`).value),
+            courseType: document.getElementById(`courseType${i}`).value,
+        };
+
+        userData.courses.push(courseData);
+    }
+
+    console.log(userData); // Display userData in the console (you can save it to a file or send it to a server)
 }
 
 function resetForm() {
@@ -100,4 +117,31 @@ function resetForm() {
     document.getElementById("result").textContent = 'Your GPA: ';
     document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
     document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
+}
+
+function downloadData() {
+    // Implement the logic to download the user's data
+    const userData = {
+        userName: document.getElementById("name").value,
+        courses: [],
+        timestamp: new Date().toISOString(),
+    };
+
+    const numCourses = parseInt(document.getElementById("numCourses").value);
+    for (let i = 1; i <= numCourses; i++) {
+        const courseData = {
+            courseName: document.getElementById(`courseName${i}`).value,
+            gradePercentage: parseFloat(document.getElementById(`grade${i}`).value),
+            courseType: document.getElementById(`courseType${i}`).value,
+        };
+
+        userData.courses.push(courseData);
+    }
+
+    const dataJson = JSON.stringify(userData, null, 2);
+    const blob = new Blob([dataJson], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `userData_${userData.timestamp}.json`;
+    link.click();
 }
