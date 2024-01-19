@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("calculateButton").addEventListener("click", calculateGPA);
+    document.getElementById("saveButton").addEventListener("click", saveData);
+    document.getElementById("loadButton").addEventListener("click", loadData);
 });
 
 function generateCourseInputs(event) {
@@ -119,8 +121,7 @@ function resetForm() {
     document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
 }
 
-function downloadData() {
-    // Implement the logic to download the user's data
+function saveData() {
     const userData = {
         userName: document.getElementById("name").value,
         courses: [],
@@ -139,9 +140,28 @@ function downloadData() {
     }
 
     const dataJson = JSON.stringify(userData, null, 2);
-    const blob = new Blob([dataJson], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `userData_${userData.timestamp}.json`;
-    link.click();
+    localStorage.setItem('userData', dataJson);
+    alert('Data saved successfully!');
+}
+
+function loadData() {
+    const storedDataJson = localStorage.getItem('userData');
+    if (storedDataJson) {
+        const storedData = JSON.parse(storedDataJson);
+
+        document.getElementById("name").value = storedData.userName;
+        document.getElementById("numCourses").value = storedData.courses.length;
+
+        generateCourseInputs(null); // Generate course inputs based on the stored number of courses
+
+        for (let i = 1; i <= storedData.courses.length; i++) {
+            document.getElementById(`courseName${i}`).value = storedData.courses[i - 1].courseName;
+            document.getElementById(`grade${i}`).value = storedData.courses[i - 1].gradePercentage;
+            document.getElementById(`courseType${i}`).value = storedData.courses[i - 1].courseType;
+        }
+
+        alert('Data loaded successfully!');
+    } else {
+        alert('No saved data found.');
+    }
 }
