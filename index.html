@@ -8,27 +8,38 @@
     <title>GPA Calculator</title>
 </head>
 <body>
+    <!-- GPA Calculator Form -->
     <form id="gpaForm">
         <div class="calculator-container">
             <h1>GPA Calculator</h1>
+            <!-- User Name Input -->
             <label for="name">Your Name:</label>
             <input type="text" id="name" placeholder="Enter your name">
             
+            <!-- Number of Courses Input -->
             <label for="numCourses">Number of Courses (Max 36):</label>
             <input type="number" id="numCourses" placeholder="Enter number of courses" max="36">
             
-            <button type="button" onclick="generateCourseInputs(event)">Generate Course Inputs</button>
+            <!-- Button to Generate Course Inputs -->
+            <button type="button" id="generateButton" onclick="generateCourseInputs(event)">Generate Course Inputs</button>
 
+            <!-- Container for Dynamically Generated Course Inputs -->
             <div id="courses-container"></div>
             
+            <!-- Button to Calculate GPA -->
             <button type="button" id="calculateButton" onclick="calculateGPA()">Calculate GPA</button>
+            
+            <!-- GPA Result Display -->
             <p id="result">Your GPA: </p>
             <p id="unweightedGPA">Unweighted GPA: </p>
             <p id="weightedGPA">Weighted GPA: </p>
+            
+            <!-- Buttons for Data Manipulation -->
             <button type="button" id="saveButton" onclick="saveData()">Save Data</button>
-            <button type="button" onclick="resetForm()">Reset Form</button>
+            <button type="button" id="resetButton" onclick="resetForm()">Reset Form</button>
         </div>
     </form>
+    <!-- JavaScript Script -->
     <script src="script.js"></script>
 </body>
 </html>
