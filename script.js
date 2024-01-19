@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("calculateButton").addEventListener("click", calculateGPA);
     document.getElementById("resetButton").addEventListener("click", resetForm);
     document.getElementById("saveButton").addEventListener("click", saveData);
-    document.getElementById("loadButton").addEventListener("click", loadData);
 });
 
 function generateCourseInputs(event) {
@@ -39,6 +38,14 @@ function generateCourseInputs(event) {
     coursesContainer.innerHTML = coursesHtml;
     coursesContainer.style.height = "300px";
     coursesContainer.style.overflow = "auto";
+
+    // Trigger animations
+    const courseContainers = document.querySelectorAll(".course-container");
+    courseContainers.forEach((container, index) => {
+        setTimeout(() => {
+            container.classList.add("active");
+        }, index * 100); // Adjust the delay for a staggered effect
+    });
 }
 
 function calculateScale(percentage, courseType) {
@@ -137,26 +144,4 @@ function saveData() {
     const dataJson = JSON.stringify(userData, null, 2);
     localStorage.setItem('userData', dataJson);
     alert('Data saved successfully!');
-}
-
-function loadData() {
-    const storedDataJson = localStorage.getItem('userData');
-    if (storedDataJson) {
-        const storedData = JSON.parse(storedDataJson);
-
-        document.getElementById("name").value = storedData.userName;
-        document.getElementById("numCourses").value = storedData.courses.length;
-
-        generateCourseInputs(); // Generate course inputs based on the stored number of courses
-
-        for (let i = 1; i <= storedData.courses.length; i++) {
-            document.getElementById(`courseName${i}`).value = storedData.courses[i - 1].courseName;
-            document.getElementById(`grade${i}`).value = storedData.courses[i - 1].gradePercentage;
-            document.getElementById(`courseType${i}`).value = storedData.courses[i - 1].courseType;
-        }
-
-        alert('Data loaded successfully!');
-    } else {
-        alert('No saved data found.');
-    }
 }
