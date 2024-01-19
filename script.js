@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("calculateButton").addEventListener("click", calculateGPA);
-    document.getElementById("saveButton").addEventListener("click", saveData);
+    document.getElementById("downloadButton").addEventListener("click", downloadData);
     document.getElementById("loadButton").addEventListener("click", loadData);
 });
 
@@ -42,16 +42,30 @@ function generateCourseInputs(event) {
     coursesContainer.style.overflow = "auto";
 }
 
+function calculateScale(percentage, courseType) {
+    let unweightedScale, weightedScale;
+
+    if (courseType === "regular") {
+        unweightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
+        weightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
+    } else if (courseType === "honors" || courseType === "ap") {
+        unweightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
+        weightedScale = percentage >= 90 ? 5.00 : percentage >= 80 ? 4.00 : percentage >= 70 ? 3.00 : percentage >= 60 ? 2.00 : 1.00;
+    }
+
+    return { unweightedScale, weightedScale };
+}
+
+function calculateUnweightedGPA(percentage) {
+    return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
+}
+
 function calculateWeightedGPA(percentage, courseType) {
     if (courseType === "regular") {
         return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
     } else if (courseType === "honors" || courseType === "ap") {
         return percentage >= 90 ? 5.00 : percentage >= 80 ? 4.00 : percentage >= 70 ? 3.00 : percentage >= 60 ? 2.00 : 1.00;
     }
-}
-
-function calculateUnweightedGPA(percentage) {
-    return percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
 }
 
 function calculateGPA() {
@@ -72,15 +86,7 @@ function calculateGPA() {
             return;
         }
 
-        let unweightedScale, weightedScale;
-
-        if (courseType === "regular") {
-            unweightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
-            weightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
-        } else if (courseType === "honors" || courseType === "ap") {
-            unweightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
-            weightedScale = percentage >= 90 ? 5.00 : percentage >= 80 ? 4.00 : percentage >= 70 ? 3.00 : percentage >= 60 ? 2.00 : 1.00;
-        }
+        const { unweightedScale, weightedScale } = calculateScale(percentage, courseType);
 
         totalCredits += 1;
         totalUnweightedGradePoints += unweightedScale;
@@ -101,6 +107,12 @@ function resetForm() {
     document.getElementById("result").textContent = 'Your GPA: ';
     document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
     document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
+}
+
+function downloadData() {
+    // Implement the download functionality if needed
+    // For example, you can export the data to a file
+    console.log('Download function called');
 }
 
 function saveData() {
