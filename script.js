@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("calculateButton").addEventListener("click", calculateGPA);
+    document.getElementById("downloadButton").addEventListener("click", downloadData);
     document.getElementById("loadButton").addEventListener("click", loadData);
 });
 
