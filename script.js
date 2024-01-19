@@ -72,13 +72,14 @@ function calculateGPA() {
             return;
         }
 
-        let unweightedScale = calculateUnweightedGPA(percentage);
+        let unweightedScale, weightedScale;
 
-        let weightedScale;
         if (courseType === "regular") {
-            weightedScale = calculateWeightedGPA(percentage, courseType);
+            unweightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
+            weightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
         } else if (courseType === "honors" || courseType === "ap") {
-            weightedScale = calculateWeightedGPA(percentage, courseType);
+            unweightedScale = percentage >= 90 ? 4.00 : percentage >= 80 ? 3.00 : percentage >= 70 ? 2.00 : percentage >= 60 ? 1.00 : 0.00;
+            weightedScale = percentage >= 90 ? 5.00 : percentage >= 80 ? 4.00 : percentage >= 70 ? 3.00 : percentage >= 60 ? 2.00 : 1.00;
         }
 
         totalCredits += 1;
