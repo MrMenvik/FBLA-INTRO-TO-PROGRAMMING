@@ -1,26 +1,23 @@
 body {
     font-family: 'Arial', sans-serif;
     background-image: url('https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/234/2017/07/13194106/11995.png');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
-    margin: -20px 0; /* Adjust the negative margin value */
-    padding: 20px;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh + 40px); /* Adjust the height value */
+    height: 100vh;
 }
 
 .calculator-container {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
+    padding: 20px;
     text-align: center;
     margin-bottom: 20px;
-    max-width: 400px;
-    width: 100%;
-    box-sizing: border-box;
 }
 
 label {
@@ -46,13 +43,13 @@ button:hover {
     background-color: #800000; /* Burgundy color on hover */
 }
 
-/* Additional styling for better aesthetics */
-h1 {
-    color: #333;
+.course-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
 }
 
-p {
-    margin: 10px 0;
+.course-container.active {
+    opacity: 1;
+    transform: translateY(0);
 }
-
-/* Add more styles as needed */
