@@ -18,7 +18,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Adjust the margin-bottom as needed */
 }
 
 label {
@@ -53,4 +53,9 @@ button:hover {
 .course-container.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+.courses-container {
+    height: auto; /* Adjust the height property */
+    overflow: visible; /* Reset overflow property */
 }

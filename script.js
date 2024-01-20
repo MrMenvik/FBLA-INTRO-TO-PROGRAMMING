@@ -5,13 +5,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const calculateButton = document.getElementById("calculateButton");
     const saveButton = document.getElementById("saveButton");
     const resetButton = document.getElementById("resetButton");
+    const loadButton = document.getElementById("loadButton");
 
     generateButton.addEventListener("click", generateCourseInputs);
     calculateButton.addEventListener("click", calculateGPA);
     resetButton.addEventListener("click", resetForm);
     saveButton.addEventListener("click", saveData);
+    loadButton.addEventListener("click", loadData);
 
-    // Initial state: Hide Calculate GPA and Save Data buttons
+    // Initial state: Hide Calculate GPA, Save Data buttons
     calculateButton.style.display = "none";
     saveButton.style.display = "none";
 });
@@ -65,6 +67,10 @@ function generateCourseInputs(event) {
         // Show Calculate GPA button after generating course inputs
         document.getElementById("calculateButton").style.display = "block";
     });
+
+    // Show Save Data and Load Data buttons after generating course inputs
+    document.getElementById("saveButton").style.display = "block";
+    document.getElementById("loadButton").style.display = "block";
 }
 
 // Function to calculate GPA scales based on percentage and course type
@@ -142,6 +148,7 @@ function calculateGPA() {
 }
 
 // Function to reset the GPA calculator form
+// Function to reset the GPA calculator form
 function resetForm() {
     // Reset form elements and GPA results
     document.getElementById("gpaForm").reset();
@@ -149,17 +156,19 @@ function resetForm() {
     document.getElementById("courses-container").style.height = "auto"; // Reset height
     document.getElementById("courses-container").style.overflow = "visible"; // Reset overflow
     document.getElementById("result").textContent = 'Your GPA: ';
+    document.getElementById("unweightedGPA").textContent = 'Unweighted GPA: ';
+    document.getElementById("weightedGPA").textContent = 'Weighted GPA: ';
 
-    // Hide Calculate GPA and Save Data buttons after resetting
+    // Hide both unweighted and weighted GPA text displays after resetting
+    document.getElementById("unweightedGPA").style.display = "none";
+    document.getElementById("weightedGPA").style.display = "none";
+
+    // Show Load Data button after resetting
+    document.getElementById("loadButton").style.display = "block";
+
+    // Hide Calculate GPA, Save Data buttons after resetting
     document.getElementById("calculateButton").style.display = "none";
     document.getElementById("saveButton").style.display = "none";
-}
-
-// Placeholder function for potential download functionality
-function downloadData() {
-    // Implement the download functionality if needed
-    // For example, you can export the data to a file
-    console.log('Download function called');
 }
 
 // Function to save user data locally
@@ -190,4 +199,73 @@ function saveData() {
     const dataJson = JSON.stringify(userData, null, 2);
     localStorage.setItem('userData', dataJson);
     alert('Data saved successfully!');
+}
+
+// Function to load saved user data
+function loadData() {
+    // Retrieve saved user data from localStorage
+    const savedDataJson = localStorage.getItem('userData');
+
+    // Check if there is saved data
+    if (savedDataJson) {
+        try {
+            // Parse the saved data from JSON
+            const savedData = JSON.parse(savedDataJson);
+
+            // Populate form fields with loaded data
+            document.getElementById("name").value = savedData.userName;
+            document.getElementById("numCourses").value = savedData.courses.length;
+
+            // Generate course inputs based on the loaded data
+            generateCourseInputsForLoad(savedData.courses);
+
+            // Show Calculate GPA button after loading data
+            document.getElementById("calculateButton").style.display = "block";
+        } catch (error) {
+            console.error('Error loading saved data:', error);
+            alert('Error loading saved data. Please check the console for details.');
+        }
+    } else {
+        alert('No saved data found.');
+    }
+}
+
+// Function to generate course inputs dynamically based on loaded data
+function generateCourseInputsForLoad(courses) {
+    // Generate HTML for course inputs based on loaded data
+    let coursesHtml = "";
+    for (let i = 0; i < courses.length; i++) {
+        coursesHtml += `
+            <div class="course-container">
+                <h2>Course ${i + 1}</h2>
+                <label for="courseName${i + 1}">Course ${i + 1} Name:</label>
+                <input type="text" id="courseName${i + 1}" placeholder="Enter course name" value="${courses[i].courseName}">
+                <label for="grade${i + 1}">Grade in Percentage:</label>
+                <input type="number" id="grade${i + 1}" placeholder="Enter percentage" value="${courses[i].gradePercentage}">
+                <label for="courseType${i + 1}">Type of Course:</label>
+                <select id="courseType${i + 1}">
+                    <option value="regular" ${courses[i].courseType === 'regular' ? 'selected' : ''}>Regular</option>
+                    <option value="honors" ${courses[i].courseType === 'honors' ? 'selected' : ''}>Honors</option>
+                    <option value="ap" ${courses[i].courseType === 'ap' ? 'selected' : ''}>AP</option>
+                </select>
+            </div>
+        `;
+    }
+
+    // Display the generated course inputs
+    const coursesContainer = document.getElementById("courses-container");
+    coursesContainer.innerHTML = coursesHtml;
+    coursesContainer.style.height = "300px";
+    coursesContainer.style.overflow = "auto";
+
+    // Trigger animations for course containers
+    const courseContainers = document.querySelectorAll(".course-container");
+    courseContainers.forEach((container, index) => {
+        setTimeout(() => {
+            container.classList.add("active");
+        }, index * 100); // Adjust the delay for a staggered effect
+
+        // Show Calculate GPA button after generating course inputs
+        document.getElementById("calculateButton").style.display = "block";
+    });
 }
