@@ -1,4 +1,7 @@
-# GPA Calculator - Web Application
+# GPA Calculator - Web Application by Maanvik Poddar
+Name: Maanvik Poddar
+High School: Mountain Ridge High School
+Grade Level: 10th Grade
 
 ## Introduction
 
