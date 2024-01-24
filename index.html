@@ -3,46 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/234/2017/07/13194106/11995.png">
     <title>GPA Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- GPA Calculator Form -->
-    <form id="gpaForm">
-        <div class="calculator-container">
-            <h1>GPA Calculator</h1>
-            <!-- User Name Input -->
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" placeholder="Enter your name">
-            
-            <!-- Number of Courses Input -->
-            <label for="numCourses">Number of Courses (Max 36):</label>
-            <input type="number" id="numCourses" placeholder="Enter number of courses" max="36">
-            
-            <!-- Button to Generate Course Inputs -->
-            <button type="button" id="generateButton" onclick="generateCourseInputs(event)">Generate Course Inputs</button>
+    <div class="calculator-container">
+        <h1>GPA Calculator</h1>
+        
+        <label for="numYears">How many years would you like to log data for?</label>
+        <input type="number" id="numYears" min="1">
+        
+        <button onclick="createTable()">Create Table</button>
 
-            <!-- Container for Dynamically Generated Course Inputs -->
-            <div id="courses-container"></div>
-
-            <!-- Button to Load Data -->
-            <button type="button" id="loadButton" onclick="loadData()">Load Data</button>
-            
-            <!-- Button to Calculate GPA -->
-            <button type="button" id="calculateButton" onclick="calculateGPA()">Calculate GPA</button>
-            
-            <!-- GPA Result Display -->
-            <p id="result">Your GPA: </p>
-            <p id="unweightedGPA">Unweighted GPA: </p>
-            <p id="weightedGPA">Weighted GPA: </p>
-            
-            <!-- Buttons for Data Manipulation -->
-            <button type="button" id="saveButton" onclick="saveData()">Save Data</button>
-            <button type="button" id="resetButton" onclick="resetForm()">Reset Form</button>
+        <div id="tableContainer"></div>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="buttons">
+            <button onclick="saveDataLocally()">Save Locally</button>
+            <button onclick="loadSavedData()">Load Data</button>
+            <button onclick="clearData()">Clear Data</button>
         </div>
-    </form>
-    <!-- JavaScript Script -->
+
+        <button class="faq-button" onclick="goToFAQ()">FAQ</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
