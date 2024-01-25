@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
@@ -33,7 +34,7 @@
             max-height: 400px;
             overflow-y: auto;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         /* Styles for the table */
@@ -46,7 +47,8 @@
         }
 
         /* Styles for table headers and cells */
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
@@ -75,49 +77,47 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #3498db;
+            background-color: #006400; /* Darkish green */
             color: #fff;
             border: none;
             border-radius: 5px;
             margin: 5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Hover effect for regular buttons */
         button:hover {
-            background-color: #2980b9;
+            background-color: #800020; /* Burgundy */
+            color: #fff;
         }
 
-        /* Styles for FAQ button */
-        .faq-button {
-            /* Styles similar to regular buttons */
-        }
-
-        /* Hover effect for FAQ button */
-        .faq-button:hover {
-            /* Hover effect similar to regular buttons */
+        /* Animation for course name requests */
+        .course-name-request {
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
     </style>
 </head>
+
 <body>
     <!-- Main container for GPA Calculator -->
     <div class="container">
         <!-- Heading for GPA Calculator -->
         <h1>GPA Calculator</h1>
-        
+
         <!-- Input for the number of years -->
         <label for="numYears">How many years would you like to log data for?</label>
         <input type="number" id="numYears" min="1">
-        
+
         <!-- Button to create the GPA calculation table -->
         <button onclick="createTable()">Create Table</button>
 
         <!-- Container for the GPA calculation table -->
         <div id="tableContainer"></div>
-        
+
         <!-- Result section for displaying GPA -->
         <div id="result" class="result"></div>
-        
+
         <!-- Buttons for saving, loading, and clearing data -->
         <div class="buttons">
             <button onclick="saveDataLocally()">Save Locally</button>
@@ -162,7 +162,7 @@
 
                 // Loop to create rows for each semester
                 for (let semester = 1; semester <= 2; semester++) {
-                    tableHTML += `<tr data-year="${year}" data-semester="${semester}">`;
+                    tableHTML += `<tr data-year="${year}" data-semester="${semester}" class="course-name-request">`;
                     tableHTML += `<td>${semester} Semester</td>`;
                     tableHTML += `<td><input type="number" class="numClasses" min="1"></td>`;
                     tableHTML += `<td id="courseName_${year}_${semester}"></td>`;
@@ -186,9 +186,23 @@
             // Set the opacity to make the table visible with transition effect
             tableContainer.style.opacity = 1;
 
+            // Trigger animation for course name requests
+            animateCourseNameRequests();
+
             // Attach event listeners and update GPA
             attachEventListeners();
             updateGPA();
+        }
+
+        // Function to animate course name requests
+        function animateCourseNameRequests() {
+            const courseNameRequests = document.querySelectorAll('.course-name-request');
+
+            courseNameRequests.forEach((request, index) => {
+                setTimeout(() => {
+                    request.style.opacity = 1;
+                }, 200 * index); // Adjust the delay as needed
+            });
         }
 
         // Function to attach event listeners
@@ -276,7 +290,7 @@
                                 gpa = isHonors ? 2.0 : 1.0;
                                 break;
                             default:
-                                gpa = 0.0;
+                            gpa = 0.0;
                         }
 
                         // Update total points, credits, and honors credits
@@ -378,4 +392,5 @@
         }
     </script>
 </body>
+
 </html>
