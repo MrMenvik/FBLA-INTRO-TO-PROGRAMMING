@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
@@ -19,7 +18,7 @@
             justify-content: center;
             height: 100vh;
         }
-
+    
         /* Styles for the GPA calculator container */
         .container {
             text-align: center;
@@ -27,16 +26,18 @@
             border-radius: 10px;
             padding: 20px;
             background-color: #fff;
+            overflow-x: hidden;
         }
-
+    
         /* Styles for the table container with transitions */
         #tableContainer {
             max-height: 400px;
             overflow-y: auto;
             opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s ease;
+            overflow-x: hidden;
         }
-
+    
         /* Styles for the table */
         table {
             border-collapse: collapse;
@@ -45,88 +46,111 @@
             overflow-x: auto;
             background-color: #fff;
         }
-
+    
         /* Styles for table headers and cells */
-        th,
-        td {
+        th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
         }
-
+    
         /* Styles for table headers */
         th {
             background-color: #f2f2f2;
         }
-
+    
         /* Styles for result section */
         .result {
             margin-top: 20px;
             font-weight: bold;
         }
-
+    
         /* Styles for buttons container */
         .buttons {
             margin-top: 20px;
             display: flex;
             justify-content: space-around;
         }
-
+    
         /* Styles for regular buttons */
         button {
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #006400; /* Darkish green */
+            background-color: #3498db;
             color: #fff;
             border: none;
             border-radius: 5px;
             margin: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease;
         }
-
+    
         /* Hover effect for regular buttons */
         button:hover {
-            background-color: #800020; /* Burgundy */
+            background-color: #2980b9;
+        }
+    
+        /* Tooltip styling */
+        [title]:hover::after, .tooltip::after, .tooltipap::after {
+            content: attr(data-tooltip);
+            background-color: #333;
             color: #fff;
-        }
-
-        /* Animation for course name requests */
-        .course-name-request {
+            padding: 5px;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            white-space: nowrap;
+            font-size: 12px;
+            visibility: hidden;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: visibility 0s, opacity 0.5s ease;
         }
-    </style>
+    
+        .tooltip:hover::after, .tooltipap:hover::after {
+            visibility: visible;
+            opacity: 1;
+            bottom: 100%; /* Position above the element */
+        }
+        
+        .tooltip:hover::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .tooltipap:hover::after {
+            left: 75%;
+            transform: translateX(-100%);
+        }
+    </style>    
 </head>
-
 <body>
     <!-- Main container for GPA Calculator -->
     <div class="container">
         <!-- Heading for GPA Calculator -->
         <h1>GPA Calculator</h1>
-
+        
         <!-- Input for the number of years -->
-        <label for="numYears">How many years would you like to log data for?</label>
+        <label for="numYears" class="tooltip" data-tooltip="Specify the number of years you want to log data for.">How many years would you like to log data for?</label>
         <input type="number" id="numYears" min="1">
-
+        
         <!-- Button to create the GPA calculation table -->
-        <button onclick="createTable()">Create Table</button>
+        <button onclick="createTable()" class="tooltipap" data-tooltip="Click to create a GPA calculation table.">Create Table</button>
 
         <!-- Container for the GPA calculation table -->
         <div id="tableContainer"></div>
-
+        
         <!-- Result section for displaying GPA -->
         <div id="result" class="result"></div>
-
+        
         <!-- Buttons for saving, loading, and clearing data -->
         <div class="buttons">
-            <button onclick="saveDataLocally()">Save Locally</button>
-            <button onclick="loadSavedData()">Load Data</button>
-            <button onclick="clearData()">Clear Data</button>
+            <button onclick="saveDataLocally()" class="tooltip" data-tooltip="Save GPA data locally.">Save Locally</button>
+            <button onclick="loadSavedData()" class="tooltip" data-tooltip="Load saved GPA data.">Load Data</button>
+            <button onclick="clearData()" class="tooltip" data-tooltip="Clear locally saved GPA data.">Clear Data</button>
         </div>
 
         <!-- FAQ button to navigate to FAQ page -->
-        <button class="faq-button" onclick="goToFAQ()">FAQ</button>
+        <button class="faq-button" onclick="goToFAQ()" class="tooltip" data-tooltip="Go to the FAQ page.">FAQ</button>
     </div>
 
     <!-- JavaScript section for dynamic functionality -->
@@ -148,21 +172,20 @@
             // Variable to store the HTML content for the table
             let tableHTML = '';
 
-            // Loop to create table structure for each year
             for (let year = 1; year <= numYears; year++) {
                 tableHTML += `<h2>Year ${year}</h2>`;
                 tableHTML += '<table>';
                 tableHTML += '<tr>';
-                tableHTML += '<th>Semester</th>';
-                tableHTML += '<th># of Classes</th>';
-                tableHTML += '<th>Course Name</th>';
-                tableHTML += '<th>Grade</th>';
-                tableHTML += '<th>Honors/AP</th>';
+                tableHTML += '<th class="tooltip" data-tooltip="Semester">Semester</th>';
+                tableHTML += '<th class="tooltip" data-tooltip="Enter the number of classes you are taking here."># of Classes</th>';
+                tableHTML += '<th class="tooltip" data-tooltip="Enter the name of the Course/Class you are taking here.">Course Name</th>';
+                tableHTML += '<th class="tooltip" data-tooltip="Enter the percent grade you got in the class.">Grade</th>';
+                tableHTML += '<th class="tooltipap" data-tooltip="Check the box if your class was Honors/AP.">Honors/AP</th>';
                 tableHTML += '</tr>';
 
                 // Loop to create rows for each semester
                 for (let semester = 1; semester <= 2; semester++) {
-                    tableHTML += `<tr data-year="${year}" data-semester="${semester}" class="course-name-request">`;
+                    tableHTML += `<tr data-year="${year}" data-semester="${semester}">`;
                     tableHTML += `<td>${semester} Semester</td>`;
                     tableHTML += `<td><input type="number" class="numClasses" min="1"></td>`;
                     tableHTML += `<td id="courseName_${year}_${semester}"></td>`;
@@ -186,23 +209,9 @@
             // Set the opacity to make the table visible with transition effect
             tableContainer.style.opacity = 1;
 
-            // Trigger animation for course name requests
-            animateCourseNameRequests();
-
             // Attach event listeners and update GPA
             attachEventListeners();
             updateGPA();
-        }
-
-        // Function to animate course name requests
-        function animateCourseNameRequests() {
-            const courseNameRequests = document.querySelectorAll('.course-name-request');
-
-            courseNameRequests.forEach((request, index) => {
-                setTimeout(() => {
-                    request.style.opacity = 1;
-                }, 200 * index); // Adjust the delay as needed
-            });
         }
 
         // Function to attach event listeners
@@ -290,7 +299,7 @@
                                 gpa = isHonors ? 2.0 : 1.0;
                                 break;
                             default:
-                            gpa = 0.0;
+                                gpa = 0.0;
                         }
 
                         // Update total points, credits, and honors credits
@@ -392,5 +401,4 @@
         }
     </script>
 </body>
-
 </html>
