@@ -267,14 +267,24 @@ let gpaChartData = {
       data: [],
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
+      tension: 0.1,
+      pointRadius: 5, // Add pointRadius property
+      hitRadius: 5, // Add hitRadius property
+      pointBackgroundColor: 'rgb(75, 192, 192)', // Optional: Set the color of the points
+      pointHoverRadius: 7, // Optional: Set the hover radius of the points
+      pointHoverBackgroundColor: 'rgb(75, 192, 192)', // Optional: Set the hover color of the points
     },
     {
       label: 'Weighted GPA',
       data: [],
       fill: false,
       borderColor: 'rgb(255, 99, 132)',
-      tension: 0.1
+      tension: 0.1,
+      pointRadius: 5, // Add pointRadius property
+      hitRadius: 5, // Add hitRadius property
+      pointBackgroundColor: 'rgb(255, 99, 132)', // Optional: Set the color of the points
+      pointHoverRadius: 7, // Optional: Set the hover radius of the points
+      pointHoverBackgroundColor: 'rgb(255, 99, 132)', // Optional: Set the hover color of the points
     }
   ]
 };
