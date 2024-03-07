@@ -292,36 +292,39 @@ let gpaChartData = {
 let gpaChart;
 
 function addToPlot() {
- const unweightedGPA = parseFloat(document.querySelector('#result span:first-child').textContent);
- const weightedGPA = parseFloat(document.querySelector('#result span:last-child').textContent);
+  const unweightedGPA = parseFloat(document.querySelector('#result span:first-child').textContent);
+  const weightedGPA = parseFloat(document.querySelector('#result span:last-child').textContent);
 
- if (!isNaN(unweightedGPA) && !isNaN(weightedGPA)) {
-   gpaChartData.labels.push(`Year ${gpaChartData.labels.length + 1}`);
-   gpaChartData.datasets[0].data.push(unweightedGPA);
-   gpaChartData.datasets[1].data.push(weightedGPA);
+  if (!isNaN(unweightedGPA) && !isNaN(weightedGPA)) {
+    const currentDate = new Date(); // Get the current date and time
+    const label = currentDate.toLocaleString(); // Convert the date object to a string with the time and date
 
-   if (!gpaChart) {
-     const ctx = document.getElementById('gpaChart').getContext('2d');
-     gpaChart = new Chart(ctx, {
-       type: 'line',
-       data: gpaChartData,
-       options: {
-         scales: {
-           y: {
-             min: 0,
-             max: 5,
-             ticks: {
-               stepSize: 0.5
-             }
-           }
-         }
-       }
-     });
-   } else {
-     gpaChart.data.labels.push(`Year ${gpaChartData.labels.length + 1}`);
-     gpaChart.data.datasets[0].data.push(unweightedGPA);
-     gpaChart.data.datasets[1].data.push(weightedGPA);
-     gpaChart.update();
-   }
- }
+    gpaChartData.labels.push(label);
+    gpaChartData.datasets[0].data.push(unweightedGPA);
+    gpaChartData.datasets[1].data.push(weightedGPA);
+
+    if (!gpaChart) {
+      const ctx = document.getElementById('gpaChart').getContext('2d');
+      gpaChart = new Chart(ctx, {
+        type: 'line',
+        data: gpaChartData,
+        options: {
+          scales: {
+            y: {
+              min: 0,
+              max: 5,
+              ticks: {
+                stepSize: 0.5
+              }
+            }
+          }
+        }
+      });
+    } else {
+      gpaChart.data.labels.push(label);
+      gpaChart.data.datasets[0].data.push(unweightedGPA);
+      gpaChart.data.datasets[1].data.push(weightedGPA);
+      gpaChart.update();
+    }
+  }
 }
