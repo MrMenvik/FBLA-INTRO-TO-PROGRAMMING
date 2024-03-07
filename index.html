@@ -8,6 +8,7 @@
     <title>GPA Calculator</title>
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="toolbar">
@@ -42,6 +43,10 @@
         <button class="faq-button" onclick="goToFAQ()" class="tooltip" data-tooltip="Go to the FAQ page.">FAQ</button>
 
         <button class="add-to-plot">Add to Plot</button>
+
+        <div class="chart-container">
+            <canvas id="gpaChart"></canvas>
+        </div>
     </div>
 
     <!-- Link to the JavaScript file -->
