@@ -15,30 +15,30 @@ function createTable() {
   // Variable to store the HTML content for the table
   let tableHTML = '';
 
-  for (let year = 1; year <= numYears; year++) {
-    tableHTML += `<h2>Year ${year}</h2>`;
-    tableHTML += '<table>';
-    tableHTML += '<tr>';
-    tableHTML += '<th class="tooltip" data-tooltip="Semester">Semester</th>';
-    tableHTML += '<th class="tooltip" data-tooltip="Enter the number of classes you are taking here."># of Classes</th>';
-    tableHTML += '<th class="tooltip" data-tooltip="Enter the name of the Course/Class you are taking here.">Course Name</th>';
-    tableHTML += '<th class="tooltip" data-tooltip="Enter the percent grade you got in the class.">Grade</th>';
-    tableHTML += '<th class="tooltipap" data-tooltip="Check the box if your class was Honors/AP.">Honors/AP</th>';
+for (let year = 1; year <= numYears; year++) {
+  tableHTML += `<h2>Year ${year}</h2>`;
+  tableHTML += '<table>';
+  tableHTML += '<tr>';
+  tableHTML += '<th class="tooltip" data-tooltip="Semester">Semester</th>';
+  tableHTML += '<th class="tooltip" data-tooltip="Enter the number of classes you are taking here."># of Classes</th>';
+  tableHTML += '<th class="tooltip" data-tooltip="Enter the name of the Course/Class you are taking here.">Course Name</th>';
+  tableHTML += '<th class="tooltip" data-tooltip="Enter the percent grade you got in the class.">Grade</th>';
+  tableHTML += '<th class="tooltipap" data-tooltip="Check the box if your class was Honors/AP.">Honors/AP</th>';
+  tableHTML += '</tr>';
+
+  // Loop to create rows for each semester
+  for (let semester = 1; semester <= 2; semester++) {
+    tableHTML += `<tr data-year="&lcub;year&rcub;" data-semester="&lcub;semester&rcub;">`;
+    tableHTML += `<td>${semester} Semester</td>`;
+    tableHTML += `<td><input type="number" class="numClasses" min="1"></td>`;
+    tableHTML += `<td id="courseName_${year}_${semester}"></td>`;
+    tableHTML += `<td id="grade_${year}_${semester}"></td>`;
+    tableHTML += `<td id="isHonors_${year}_${semester}"></td>`;
     tableHTML += '</tr>';
-
-    // Loop to create rows for each semester
-    for (let semester = 1; semester <= 2; semester++) {
-      tableHTML += `<tr data-year="<span class="math-inline">\{year\}" data\-semester\="</span>{semester}">`;
-      tableHTML += `<td>${semester} Semester</td>`;
-      tableHTML += `<td><input type="number" class="numClasses" min="1"></td>`;
-      tableHTML += `<td id="courseName_${year}_${semester}"></td>`;
-      tableHTML += `<td id="grade_${year}_${semester}"></td>`;
-      tableHTML += `<td id="isHonors_${year}_${semester}"></td>`;
-      tableHTML += '</tr>';
-    }
-
-    tableHTML += '</table>';
   }
+
+  tableHTML += '</table>';
+}
 
   // Get the table container element
   const tableContainer = document.getElementById('tableContainer');
