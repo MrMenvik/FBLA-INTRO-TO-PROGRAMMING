@@ -237,3 +237,9 @@ button:hover {
         transform: translateX(0);
     }
 }
+
+.chart-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+}
