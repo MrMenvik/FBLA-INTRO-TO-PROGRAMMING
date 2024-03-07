@@ -260,6 +260,60 @@ function goToFAQ() {
     window.location.href = 'faq.html';
 }
 
+let gpaChartData = {
+    labels: [],
+    datasets: [
+        {
+            label: 'Unweighted GPA',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        },
+        {
+            label: 'Weighted GPA',
+            data: [],
+            fill: false,
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.1
+        }
+    ]
+};
+
+let gpaChart;
+
+function addToPlot() {
+    const unweightedGPA = parseFloat(document.querySelector('#result span:first-child').textContent);
+    const weightedGPA = parseFloat(document.querySelector('#result span:last-child').textContent);
+
+    if (!isNaN(unweightedGPA) && !isNaN(weightedGPA)) {
+        gpaChartData.labels.push(`Year ${gpaChartData.labels.length + 1}`);
+        gpaChartData.datasets[0].data.push(unweightedGPA);
+        gpaChartData.datasets[1].data.push(weightedGPA);
+
+        if (!gpaChart) {
+            const ctx = document.getElementById('gpaChart').getContext('2d');
+            gpaChart = new Chart(ctx, {
+                type: 'line',
+                data: gpaChartData,
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 5,
+                            ticks: {
+                                stepSize: 0.5
+                            }
+                        }
+                    }
+                }
+            });
+        } else {
+            gpaChart.update();
+        }
+    }
+}
+
 // Load saved data on page load
 window.onload = function() {
     loadSavedData();
