@@ -97,7 +97,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #3498db;
+    background-color: #006400; /* Dark green */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -107,7 +107,11 @@ button {
 
 /* Hover effect for regular buttons */
 button:hover {
-    background-color: #2980b9;
+    background-color: #800000;
+}
+
+.add-to-plot {
+    /* Additional styles for the "Add to Plot" button go here */
 }
 
 /* Styles for FAQ button */
