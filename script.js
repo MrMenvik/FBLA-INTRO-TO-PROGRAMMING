@@ -211,47 +211,91 @@ function saveDataLocally() {
 
 // Function to load saved GPA data
 function loadSavedData() {
- // Retrieve saved data from local storage
- const savedData = JSON.parse(localStorage.getItem('gpaData'));
+  // Retrieve saved GPA data from local storage
+  const savedData = JSON.parse(localStorage.getItem('gpaData'));
 
- // Display an alert if no saved data is found
- if (!savedData) {
-   alert('No saved data found.');
-   return;
- }
+  // Display an alert if no saved GPA data is found
+  if (!savedData) {
+      alert('No saved GPA data found.');
+  } else {
+      // Update the number of years input and create the table structure
+      numYears = savedData.numYears;
+      document.getElementById('numYears').value = numYears;
+      createTable();
 
- // Update the number of years input and create the table structure
- numYears = savedData.numYears;
- document.getElementById('numYears').value = numYears;
- createTable();
+      // Loop to populate input fields with saved data
+      savedData.data.forEach((entry) => {
+          if (entry.numClasses) {
+              document.querySelector(`[data-year="${entry.year}"][data-semester="${entry.semester}"] .numClasses`).value = entry.numClasses;
+              createClassRows({ target: document.querySelector(`[data-year="${entry.year}"][data-semester="${entry.semester}"] .numClasses`) });
+          } else {
+              const courseName = document.querySelector(`#courseName_${entry.year}_${entry.semester}_${entry.num}`);
+              const grade = document.querySelector(`#grade_${entry.year}_${entry.semester}_${entry.num}`);
+              const isHonors = document.querySelector(`#isHonors_${entry.year}_${entry.semester}_${entry.num}`);
 
- // Loop to populate input fields with saved data
- savedData.data.forEach((entry) => {
-   if (entry.numClasses) {
-     document.querySelector(`[data-year="${entry.year}"][data-semester="${entry.semester}"] .numClasses`).value = entry.numClasses;
-     createClassRows({ target: document.querySelector(`[data-year="${entry.year}"][data-semester="${entry.semester}"] .numClasses`) });
-   } else {
-     const courseName = document.querySelector(`#courseName_${entry.year}_${entry.semester}_${entry.num}`);
-     const grade = document.querySelector(`#grade_${entry.year}_${entry.semester}_${entry.num}`);
-     const isHonors = document.querySelector(`#isHonors_${entry.year}_${entry.semester}_${entry.num}`);
+              if (courseName && grade && isHonors) {
+                  courseName.value = entry.courseName;
+                  grade.value = entry.grade;
+                  isHonors.checked = entry.isHonors;
+              }
+          }
+      });
 
-     if (courseName && grade && isHonors) {
-       courseName.value = entry.courseName;
-       grade.value = entry.grade;
-       isHonors.checked = entry.isHonors;
-     }
-   }
- });
+      // Update GPA based on loaded data
+      updateGPA();
+  }
 
- // Update GPA based on loaded data
- updateGPA();
+  // Load saved chart data from localStorage
+  const savedChartData = JSON.parse(localStorage.getItem('gpaChartData'));
+
+  // Check if there is saved chart data
+  if (savedChartData) {
+      gpaChartData = savedChartData;
+
+      // Render the chart with the loaded data
+      const ctx = document.getElementById('gpaChart').getContext('2d');
+      if (gpaChart) {
+          gpaChart.destroy(); // Destroy the existing chart instance before creating a new one
+      }
+      gpaChart = new Chart(ctx, {
+          type: 'line',
+          data: gpaChartData,
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      suggestedMax: 5, // Suggested max value to accommodate weighted GPA
+                  }
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      display: true,
+                  }
+              }
+          }
+      });
+  }
 }
 
 // Function to clear locally saved GPA data
 function clearData() {
- localStorage.removeItem('gpaData');
- document.getElementById('tableContainer').innerHTML = '';
- document.getElementById('result').textContent = '';
+  // Remove saved GPA data from localStorage
+  localStorage.removeItem('gpaData');
+  
+  // Clear the GPA calculation results and the table container from the UI
+  document.getElementById('tableContainer').innerHTML = '';
+  document.getElementById('result').textContent = '';
+
+  // Remove saved chart data from localStorage
+  localStorage.removeItem('gpaChartData');
+
+  // Optionally, if you wish to remove the chart visually as well, you can do so by checking if the chart exists and then destroying it
+  if (gpaChart) {
+      gpaChart.destroy();
+      gpaChart = null; // Reset the chart variable to ensure you can create a new chart later without issues
+  }
 }
 
 // Function to navigate to the FAQ page
@@ -302,59 +346,45 @@ function addToPlot() {
 
   // Check if the GPAs are valid numbers
   if (!isNaN(unweightedGPA) && !isNaN(weightedGPA)) {
-    const currentDate = new Date();
-    const label = currentDate.toLocaleString();
+      const currentDate = new Date();
+      const label = currentDate.toLocaleString('default', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
-    // Check if the chart has already been created
-    if (!gpaChart) {
-      // If the chart hasn't been created, initialize it with the current data
-      const ctx = document.getElementById('gpaChart').getContext('2d');
-      gpaChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: [label], // The x-axis labels (timestamps in this case)
-          datasets: [
-            {
-              label: 'Unweighted GPA',
-              data: [unweightedGPA], // Initialize with the current unweighted GPA
-              fill: false,
-              borderColor: 'rgb(75, 192, 192)',
-              tension: 0.1,
-              pointRadius: 5,
-              hitRadius: 5,
-              pointBackgroundColor: 'rgb(75, 192, 192)',
-              pointHoverRadius: 7,
-              pointHoverBackgroundColor: 'rgb(75, 192, 192)'
-            },
-            {
-              label: 'Weighted GPA',
-              data: [weightedGPA], // Initialize with the current weighted GPA
-              fill: false,
-              borderColor: 'rgb(255, 99, 132)',
-              tension: 0.1,
-              pointRadius: 5,
-              hitRadius: 5,
-              pointBackgroundColor: 'rgb(255, 99, 132)',
-              pointHoverRadius: 7,
-              pointHoverBackgroundColor: 'rgb(255, 99, 132)'
-            }
-          ]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true, // Ensuring the y-axis starts at 0
-              suggestedMax: 5 // Suggesting a maximum value for better readability
-            }
-          }
-        }
-      });
-    } else {
-      // If the chart already exists, update it with new data
-      gpaChart.data.labels.push(label); // Add the new label
-      gpaChart.data.datasets[0].data.push(unweightedGPA); // Add the new unweighted GPA to its dataset
-      gpaChart.data.datasets[1].data.push(weightedGPA); // Add the new weighted GPA to its dataset
-      gpaChart.update(); // Update the chart to reflect the new data
-    }
+      // Update chart data
+      gpaChartData.labels.push(label);
+      gpaChartData.datasets[0].data.push(unweightedGPA);
+      gpaChartData.datasets[1].data.push(weightedGPA);
+
+      // Check if the chart has already been created
+      if (gpaChart) {
+          // If the chart exists, update it with the new data
+          gpaChart.update();
+      } else {
+          // If the chart hasn't been created, initialize it with the current data
+          const ctx = document.getElementById('gpaChart').getContext('2d');
+          gpaChart = new Chart(ctx, {
+              type: 'line',
+              data: gpaChartData,
+              options: {
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                          suggestedMax: 5, // Suggested max value to accommodate weighted GPA
+                      }
+                  },
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                      legend: {
+                          display: true,
+                      }
+                  }
+              }
+          });
+      }
+
+      // Save the updated chart data to localStorage
+      localStorage.setItem('gpaChartData', JSON.stringify(gpaChartData));
+  } else {
+      alert('Invalid GPA values. Please ensure all grades are entered correctly.');
   }
 }

@@ -34,15 +34,12 @@
         <!-- Result section for displaying GPA -->
         <div id="result" class="result"></div>
         
-        <!-- Button for clearing data -->
+        <!-- Buttons -->
         <div class="buttons">
             <button onclick="clearData()" class="tooltip" data-tooltip="Clear locally saved GPA data.">Clear Data</button>
+            <button class="faq-button" onclick="goToFAQ()" data-tooltip="Go to the FAQ page.">FAQ</button>
+            <button class="add-to-plot" onclick="addToPlot()">Add to Plot</button>
         </div>
-
-        <!-- FAQ button to navigate to FAQ page -->
-        <button class="faq-button" onclick="goToFAQ()" class="tooltip" data-tooltip="Go to the FAQ page.">FAQ</button>
-
-        <button class="add-to-plot" onclick="addToPlot()">Add to Plot</button>
 
         <div class="chart-container">
             <canvas id="gpaChart"></canvas>
