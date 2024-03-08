@@ -259,6 +259,10 @@ function goToFAQ() {
  window.location.href = 'faq.html';
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  loadSavedData();
+});
+
 let gpaChartData = {
  labels: [],
  datasets: [
@@ -292,39 +296,65 @@ let gpaChartData = {
 let gpaChart;
 
 function addToPlot() {
+  // Retrieve GPA values
   const unweightedGPA = parseFloat(document.querySelector('#result span:first-child').textContent);
   const weightedGPA = parseFloat(document.querySelector('#result span:last-child').textContent);
 
+  // Check if the GPAs are valid numbers
   if (!isNaN(unweightedGPA) && !isNaN(weightedGPA)) {
-    const currentDate = new Date(); // Get the current date and time
-    const label = currentDate.toLocaleString(); // Convert the date object to a string with the time and date
+    const currentDate = new Date();
+    const label = currentDate.toLocaleString();
 
-    gpaChartData.labels.push(label);
-    gpaChartData.datasets[0].data.push(unweightedGPA);
-    gpaChartData.datasets[1].data.push(weightedGPA);
-
+    // Check if the chart has already been created
     if (!gpaChart) {
+      // If the chart hasn't been created, initialize it with the current data
       const ctx = document.getElementById('gpaChart').getContext('2d');
       gpaChart = new Chart(ctx, {
         type: 'line',
-        data: gpaChartData,
+        data: {
+          labels: [label], // The x-axis labels (timestamps in this case)
+          datasets: [
+            {
+              label: 'Unweighted GPA',
+              data: [unweightedGPA], // Initialize with the current unweighted GPA
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1,
+              pointRadius: 5,
+              hitRadius: 5,
+              pointBackgroundColor: 'rgb(75, 192, 192)',
+              pointHoverRadius: 7,
+              pointHoverBackgroundColor: 'rgb(75, 192, 192)'
+            },
+            {
+              label: 'Weighted GPA',
+              data: [weightedGPA], // Initialize with the current weighted GPA
+              fill: false,
+              borderColor: 'rgb(255, 99, 132)',
+              tension: 0.1,
+              pointRadius: 5,
+              hitRadius: 5,
+              pointBackgroundColor: 'rgb(255, 99, 132)',
+              pointHoverRadius: 7,
+              pointHoverBackgroundColor: 'rgb(255, 99, 132)'
+            }
+          ]
+        },
         options: {
           scales: {
             y: {
-              min: 0,
-              max: 5,
-              ticks: {
-                stepSize: 0.5
-              }
+              beginAtZero: true, // Ensuring the y-axis starts at 0
+              suggestedMax: 5 // Suggesting a maximum value for better readability
             }
           }
         }
       });
     } else {
-      gpaChart.data.labels.push(label);
-      gpaChart.data.datasets[0].data.push(unweightedGPA);
-      gpaChart.data.datasets[1].data.push(weightedGPA);
-      gpaChart.update();
+      // If the chart already exists, update it with new data
+      gpaChart.data.labels.push(label); // Add the new label
+      gpaChart.data.datasets[0].data.push(unweightedGPA); // Add the new unweighted GPA to its dataset
+      gpaChart.data.datasets[1].data.push(weightedGPA); // Add the new weighted GPA to its dataset
+      gpaChart.update(); // Update the chart to reflect the new data
     }
   }
 }
